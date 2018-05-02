@@ -13,6 +13,7 @@
 #  IMPORTS
 ####################################################################
 from math import log, exp
+from collections import OrderedDict
 import csv
 import random
 from html.parser import HTMLParser
@@ -50,38 +51,42 @@ factor_map = {
     'goal-mastery-orientation': 6,
 }
 
-task_map = {
-    'Writing a short story for fun.' : 1, 
-    'Finding and choosing a new roomate.' : 2, 
-    'Buying art for your home.' : 3, 
-    'Paying your bills.' : 4, 
-    'Voting in a federal election.' : 5, 
-    'Writing a birthday card to one of your parents.' : 6, 
-    "Chatting with a local in a foreign country where you don't speak the language." : 7, 
-    'Picking a movie to watch with a group of friends.' : 8, 
-    'Writing your wedding vows.' : 9, 
-    'Drawing or painting something meaningful to you.' : 10, 
-    'Deciding what people to invite to a party.' : 11, 
-    'Driving to work.' : 12, 
-    'Buying a house.' : 13, 
-    'Driving a family member to the hospital during a medical emergency.' : 14, 
-    'Finding and scheduling events for you to attend in your free time.' : 15, 
-    'Planning a holiday party at work.' : 16, 
-    'Creating a personal nutrition plan and tracking your diet.' : 17, 
-    'Breaking up with your romantic partner.' : 18, 
-    'Finding and picking a new roommate.' : 19, 
-    "Diagnosing and repairing your car's engine problems." : 20, 
-    'Doing your taxes.' : 21, 
-    'Managing all your finances and investments.' : 22, 
-    'Planning and booking a weekend vacation: destination, travel, accommodations, events.' : 23, 
-    'Deciding and ordering food for dinner.' : 24, 
-    'Texting a joke to a friend.' : 25, 
-    'Cleaning your house.' : 26, 
-    'Filling out and submitting a job application.' : 27, 
-    'Serving on jury duty and deciding if a defendant is guilty.' : 28, 
-    'Reading a novel.' : 29,
-    'Answering emails from customers at your job.' : 30
-}
+task_list = [
+    'Writing a short story for fun.',
+    'Finding and choosing a new roomate.',
+    'Buying art for your home.',
+    'Paying your bills.',
+    'Voting in a federal election.',
+    'Writing a birthday card to one of your parents.',
+    "Chatting with a local in a foreign country where you don't speak the language.",
+    'Picking a movie to watch with a group of friends.',
+    'Writing your wedding vows.',
+    'Drawing or painting something meaningful to you.',
+    'Deciding what people to invite to a party.',
+    'Driving to work.',
+    'Buying a house.',
+    'Driving a family member to the hospital during a medical emergency.',
+    'Finding and scheduling events for you to attend in your free time.',
+    'Planning a holiday party at work.',
+    'Creating a personal nutrition plan and tracking your diet.',
+    'Breaking up with your romantic partner.',
+    'Finding and picking a new roommate.',
+    "Diagnosing and repairing your car's engine problems.",
+    'Doing your taxes.',
+    'Managing all your finances and investments.',
+    'Planning and booking a weekend vacation: destination, travel, accommodations, events.',
+    'Deciding and ordering food for dinner.',
+    'Texting a joke to a friend.',
+    'Cleaning your house.',
+    'Filling out and submitting a job application.',
+    'Serving on jury duty and deciding if a defendant is guilty.',
+    'Reading a novel.',
+    'Answering emails from customers at your job.'
+]
+
+task_map = OrderedDict()
+for i, task in enumerate(task_list):
+    task_map[task] = i + 1
 
 #inv_task_map = invert_map(task_map)
 
@@ -205,6 +210,8 @@ class DataLoader:
         for q in ['delegate', 'why-delegate', 'why-not-delegate', 'trust-delegate']:
             tag = self.get_cell_id(q, task_num+1)
             d[q] = row[tag]
+        print(d)
+        print("\n")
         return d
 
 
