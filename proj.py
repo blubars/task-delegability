@@ -42,14 +42,14 @@ question_map = {
     'trust-delegate' : 'Q13'
 }
 
-factor_map = {
-    'importance' : 1,
-    'difficulty' : 2,
-    'self-efficacy': 3,
-    'intrinsic-motivation': 4,
-    'accountability': 5,
-    'goal-mastery-orientation': 6,
-}
+factor_list = [
+    'importance',
+    'difficulty',
+    'self-efficacy',
+    'intrinsic-motivation',
+    'accountability',
+    'goal-mastery-orientation'
+]
 
 task_list = [
     'Writing a short story for fun.',
@@ -87,6 +87,9 @@ task_list = [
 task_map = OrderedDict()
 for i, task in enumerate(task_list):
     task_map[task] = i + 1
+factor_map = OrderedDict()
+for i, factor in enumerate(factor_list):
+    factor_map[factor] = i + 1
 
 #inv_task_map = invert_map(task_map)
 
@@ -161,7 +164,6 @@ class DataLoader:
             # label is the delegability.
             #y[i] = avg_task_data[num_features]
             y.append(avg_task_data[num_features])
-            #print("{}, {}".format(X[len(X)-1], y[len(y)-1]))
         return np.array(X), np.array(y)
 
     def read_csv(self):
@@ -201,7 +203,6 @@ class DataLoader:
         # task text
         self.html.feed(row['task' + str(task_num)])
         task = self.q.get(block=True)
-        print(task)
         d['task'] = task.strip()
         # task factors:
         for factor in factor_map.keys():
@@ -210,8 +211,6 @@ class DataLoader:
         for q in ['delegate', 'why-delegate', 'why-not-delegate', 'trust-delegate']:
             tag = self.get_cell_id(q, task_num+1)
             d[q] = row[tag]
-        print(d)
-        print("\n")
         return d
 
 
