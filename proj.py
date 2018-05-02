@@ -29,6 +29,7 @@ from sklearn.model_selection import cross_validate, train_test_split
 random.seed(12)
 
 FILE_PATH = "./data/data-may-1-18.csv"
+OUTFILE_PATH = "./data/cleaned-may-1-18.csv"
 
 ####################################################################
 #  FUNCTION DEFINITIONS
@@ -118,7 +119,6 @@ class DataLoader:
         ''' average info across task '''
         # TODO: do statstical analysis by task?
         # group data by task instead of by subject
-        task_id = task_map[task]
         task_data = []
         for subject in data:
             for task_answer in subject:
@@ -141,30 +141,27 @@ class DataLoader:
         # first element of X is the task ID (task-map)
         num_features = len(factor_map)
         num_examples = len(task_map)
-        #X = np.zeros((num_examples, num_features))
-        #y = np.zeros(num_examples)
         X = []
         y = []
+        metadata = []
         # group by task, then collapse factors across task
         # such that we have one feature vector per class
         for i, task in enumerate(task_map.keys()):
+            task_id = task_map[task]
             task_data = self.group_by_task(data, task)
             a = []
             for j, item in enumerate(task_data):
                 a.append(self.vectorize_item(item))
             if len(a) == 0:
                 # no data for this task??
+                print("No data for '{}'".format(task))
                 continue
             # summarize task data
             avg_task_data = np.mean(np.array(a), axis=0)
-            #X[i, 1:] = avg_task_data[:num_features]
             X.append(avg_task_data[0:num_features])
-            #X[i, 0:num_features] = avg_task_data[0:num_features]
-            #X[i, 0] = task_map['task']
-            # label is the delegability.
-            #y[i] = avg_task_data[num_features]
             y.append(avg_task_data[num_features])
-        return np.array(X), np.array(y)
+            metadata.append({'task_id': task_id, 'num_resp': len(a)})
+        return np.array(X), np.array(y), metadata
 
     def read_csv(self):
         data = []
@@ -213,6 +210,24 @@ class DataLoader:
             d[q] = row[tag]
         return d
 
+    def write_csv(self, data):
+        with open(OUTFILE_PATH, 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(["Subject", "Task", "Task id", "Delegability", "Trust", 
+                             'Importance', 'Difficulty', 'Self-efficacy', 'Intrinsic-motivation', 
+                             'Accountability', 'Goal-mastery-orientation', 'Why delegate?', 'Why not delegate?'])
+            for subj_id, subj in enumerate(data):
+                for task in subj:
+                    info = [
+                        subj_id, task['task'], task_map[task['task']], 
+                        task['delegate'], task['trust-delegate'], 
+                        task['importance'], task['difficulty'], task['self-efficacy'],
+                        task['intrinsic-motivation'], task['accountability'], task['goal-mastery-orientation'],
+                        task['why-delegate'], task['why-not-delegate']
+                    ]
+                    writer.writerow(info)
+
+
 
 ####################################################################
 #  MAIN
@@ -220,14 +235,17 @@ class DataLoader:
 if __name__ == "__main__":
     dl = DataLoader(FILE_PATH)
     raw_data = dl.read_csv()
-    X, Y = dl.vectorize(raw_data)
+    X, Y, metadata = dl.vectorize(raw_data)
     print(X)
     print(Y)
+    for d in metadata:
+        print(d)
+    dl.write_csv(raw_data)
 
     X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.4, random_state=0)
 
     m1 = tree.DecisionTreeClassifier(max_depth=2)
-    m2 = tree.DecisionTreeClassifier(max_depth=2)
+    m2 = tree.DecisionTreeClassifier(max_depth=5)
     m1.fit(X, Y)
     m2.fit(X, Y)
 
