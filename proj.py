@@ -20,8 +20,14 @@ from html.parser import HTMLParser
 import queue
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import tree
 from sklearn.model_selection import cross_validate, train_test_split
+from sklearn.preprocessing import StandardScaler, LabelBinarizer
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.decomposition import PCA
+from sklearn import tree
+from sklearn.metrics import accuracy_score
+
+import graphviz
 
 ####################################################################
 # VARIABLES AND CONSTANTS
@@ -34,6 +40,12 @@ OUTFILE_PATH = "./data/cleaned-may-1-18.csv"
 ####################################################################
 #  FUNCTION DEFINITIONS
 ####################################################################
+
+delegability_map = {
+    3 : 'No Delegation',
+    2 : 'Human Control, Machine Advice',
+    1 : 'Complete Delegation'
+}
 
 question_map = {
     'factors' : 'Q8',
@@ -133,6 +145,7 @@ class DataLoader:
             a.append(int(item[factor]))
         # last element is delegability
         a.append(int(item['delegate']))
+        a.append(int(item['trust-delegate']))
         return a
 
     def vectorize(self, data):
@@ -144,6 +157,7 @@ class DataLoader:
         X = []
         y = []
         metadata = []
+        trust = []
         # group by task, then collapse factors across task
         # such that we have one feature vector per class
         for i, task in enumerate(task_map.keys()):
@@ -161,6 +175,7 @@ class DataLoader:
             X.append(avg_task_data[0:num_features])
             y.append(avg_task_data[num_features])
             metadata.append({'task_id': task_id, 'num_resp': len(a)})
+            trust.append(avg_task_data[num_features + 1])
         return np.array(X), np.array(y), metadata
 
     def read_csv(self):
@@ -228,6 +243,21 @@ class DataLoader:
                     writer.writerow(info)
 
 
+class TaskPlotter:
+    def __init__(self, DataLoader):
+        self.dl = DataLoader
+
+    def plot_task(self):
+        return
+
+def graph_vis(model, feature_names, class_names):
+    dot_data = tree.export_graphviz(model, out_file=None, 
+                             feature_names=feature_names,
+                             class_names=class_names,
+                             filled=True, rounded=True,  
+                             special_characters=True)  
+    graph = graphviz.Source(dot_data)  
+    graph.render("tree")
 
 ####################################################################
 #  MAIN
@@ -236,16 +266,142 @@ if __name__ == "__main__":
     dl = DataLoader(FILE_PATH)
     raw_data = dl.read_csv()
     X, Y, metadata = dl.vectorize(raw_data)
-    print(X)
-    print(Y)
-    for d in metadata:
-        print(d)
-    dl.write_csv(raw_data)
+    #print(X)
+    #print(Y)
+    #for d in metadata:
+    #    print(d)
+    #dl.write_csv(raw_data)
 
-    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.4, random_state=0)
+    # round the labels to discrete values
+    discrete_y = np.around(Y)
 
-    m1 = tree.DecisionTreeClassifier(max_depth=2)
-    m2 = tree.DecisionTreeClassifier(max_depth=5)
-    m1.fit(X, Y)
-    m2.fit(X, Y)
+    if 0:
+        labels = [delegability_map[label] for label in discrete_y]
+        # scatterplot matrix
+        import pandas as pd
+        import seaborn as sns
+        sns.set(style="ticks")
+        df1 = pd.DataFrame(X, columns=factor_list)
+        df2 = pd.DataFrame(labels, columns=["labels"])
+        df = pd.concat([df1, df2], axis=1)
+        print(df)
+        graph = sns.pairplot(df, hue="labels") #kind="reg", 
+        plt.show()
+
+
+    # plot the data
+    if 0:
+        if 0:
+            # run PCA/dim reduction
+            pca = PCA(n_components=2)
+            X = StandardScaler().fit_transform(X)
+            X_r = pca.fit_transform(X)
+            print("Explained variance ratio (1st 2 components): {}".format(pca.explained_variance_ratio_))
+        elif 0:
+            lda = LinearDiscriminantAnalysis(n_components=2)
+            X = StandardScaler().fit_transform(X,)
+            X_r = lda.fit_transform(X, discrete_y)
+        else:
+            X_r = np.zeros((X.shape[0], 2))
+            X_r[:,0] = X[:,0]
+            X_r[:,1] = X[:,3]
+            plt.title("Delegability: Importance vs Intrinsic Motivation")
+            plt.xlabel("Importance")
+            plt.ylabel("Intrinsic Motivation")
+        colors = ['b', 'g', 'r']
+        for i, label in delegability_map.items():
+            #print("{}, {}".format(i, label))
+            c = colors[i-1]
+            plt.scatter(X_r[discrete_y == i, 0], X_r[discrete_y == i, 1], color=c, alpha=0.8, label=label)
+        plt.legend()
+
+
+        #for m, x, y in zip(metadata, X_r[:, 0], X_r[:, 1]):
+        #    text = task_list[m['task_id'] - 1]
+            #text = str(m['task_id'])
+        #    plt.annotate(text, xy=(x, y), xytext=(-50, 10), textcoords='offset points')
+
+        plt.show()
+        #labels = [delegability_map]
+
+    if 0:
+        deleg_y = np.copy(discrete_y)
+        for i,v in enumerate(deleg_y):
+            #if v == 3: # NO delegation == 3
+            if v == 1: # delegation == 1
+                deleg_y[i] = 1
+            else:
+                deleg_y[i] = 0
+
+        # tree for DELEGATING
+        X_train, X_test, y_train, y_test, m_train, m_test = train_test_split(X, deleg_y, metadata, test_size=0.4, random_state=0)
+        print("Train:")
+        print(y_train)
+        print("Test:")
+        print(y_test)
+        m1 = tree.DecisionTreeClassifier(max_depth=6, class_weight="balanced")
+        m1.fit(X_train, y_train)
+        y_pred1 = m1.predict(X_test)
+        print("Pred:")
+        print(y_pred1)
+        print("Accuracy, Dec Tree Depth {}: {}".format(3, accuracy_score(y_test, y_pred1)))
+        for x,yt,yp,meta in zip(X_test, y_test, y_pred1, m_test):
+            print("Task[{}]: {}: Prediction: {} Actual: {}, Features:{}".format(meta['task_id'], task_list[meta['task_id'] - 1], yp, yt, x))
+            print(m1.decision_path([x]))
+
+        print("FEATURE IMPORTANCES:")
+        print(m1.feature_importances_)
+        print("TREE:")
+        graph_vis(m1, factor_list, ["Full/Partial Automation", "Human Only"])
+        # print decision tree:
+
+    if 0:
+        #for i,v in enumerate(discrete_y):
+        #    if v != 1:
+        #        discrete_y[i] = 0
+
+        lb = LabelBinarizer()
+        bin_y = lb.fit_transform(discrete_y)
+        X_train, X_test, y_train, y_test = train_test_split(X, bin_y, test_size=0.4, random_state=0)
+
+        print("Train:")
+        print(y_train)
+        print("Test:")
+        print(y_test)
+        m1 = tree.DecisionTreeClassifier(max_depth=2)
+        m2 = tree.DecisionTreeClassifier(max_depth=3)
+        m1.fit(X_train, y_train)
+        m2.fit(X_train, y_train)
+        y_pred1 = m1.predict(X_test)
+        y_pred2 = m2.predict(X_test)
+        print("Pred, depth 2:")
+        print(y_pred1)
+        print("Pred, depth 3:")
+        print(y_pred2)
+        print("Accuracy, Dec Tree Depth {}: {}".format(2, accuracy_score(y_test, y_pred1)))
+        print("Accuracy, Dec Tree Depth {}: {}".format(3, accuracy_score(y_test, y_pred2)))
+
+    if 1:
+        from sklearn.svm import SVC
+        #for i,v in enumerate(discrete_y):
+        #    if v != 1:
+        #        discrete_y[i] = 0
+
+        #lb = LabelBinarizer()
+        #bin_y = lb.fit_transform(discrete_y)
+        X_train, X_test, y_train, y_test = train_test_split(X, discrete_y, test_size=0.4, random_state=0)
+
+        print("Train:")
+        print(y_train)
+        print("Test:")
+        print(y_test)
+        m1 = SVC()
+        m1.fit(X_train, y_train)
+        y_pred = m1.predict(X_test)
+        print("Pred, depth 2:")
+        print(y_pred)
+        print("Accuracy, SVM: {}".format(accuracy_score(y_test, y_pred)))
+
+
+
 
