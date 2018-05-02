@@ -195,7 +195,8 @@ class DataLoader:
         d = {}
         # task text
         self.html.feed(row['task' + str(task_num)])
-        task = self.q.get()
+        task = self.q.get(block=True)
+        print(task)
         d['task'] = task.strip()
         # task factors:
         for factor in factor_map.keys():
@@ -204,7 +205,6 @@ class DataLoader:
         for q in ['delegate', 'why-delegate', 'why-not-delegate', 'trust-delegate']:
             tag = self.get_cell_id(q, task_num+1)
             d[q] = row[tag]
-        #print(d)
         return d
 
 
