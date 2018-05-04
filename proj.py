@@ -20,12 +20,12 @@ from html.parser import HTMLParser
 import queue
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.model_selection import cross_validate, train_test_split
+from sklearn.model_selection import cross_val_score, train_test_split, StratifiedShuffleSplit
 from sklearn.preprocessing import StandardScaler, LabelBinarizer
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.decomposition import PCA
 from sklearn import tree
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 
 import graphviz
 
@@ -148,7 +148,7 @@ class DataLoader:
         a.append(int(item['trust-delegate']))
         return a
 
-    def vectorize(self, data):
+    def vectorize(self, data, flatten_tasks=True):
         ''' turn data array into a feature vector, organized
             by task (each row is a task)  '''
         # first element of X is the task ID (task-map)
@@ -171,12 +171,23 @@ class DataLoader:
                 print("No data for '{}'".format(task))
                 continue
             # summarize task data
-            avg_task_data = np.mean(np.array(a), axis=0)
-            X.append(avg_task_data[0:num_features])
-            y.append(avg_task_data[num_features])
-            metadata.append({'task_id': task_id, 'num_resp': len(a)})
-            trust.append(avg_task_data[num_features + 1])
-        return np.array(X), np.array(y), metadata
+            if flatten_tasks:
+                print(task)
+                avg_task_data = np.mean(np.array(a), axis=0)
+                print("AVG: {}".format(avg_task_data))
+                stddev = np.std(np.array(a), axis=0)
+                print("STD: {}\n".format(stddev))
+                X.append(avg_task_data[0:num_features])
+                y.append(avg_task_data[num_features])
+                metadata.append({'task_id': task_id, 'num_resp': len(a)})
+                trust.append(avg_task_data[num_features + 1])
+            else:
+                for entry in a:
+                    X.append(entry[0:num_features])
+                    y.append(entry[num_features])
+                    metadata.append({'task_id': task_id, 'num_resp': len(a)})
+                    trust.append(6 - entry[num_features + 1])
+        return np.array(X), np.array(y), metadata, trust
 
     def read_csv(self):
         data = []
@@ -259,13 +270,17 @@ def graph_vis(model, feature_names, class_names):
     graph = graphviz.Source(dot_data)  
     graph.render("tree")
 
+def jitter(a):
+    return [np.random.normal(loc=0.0, scale=0.2) + x for x in a]
+
 ####################################################################
 #  MAIN
 ###################################################################
 if __name__ == "__main__":
     dl = DataLoader(FILE_PATH)
     raw_data = dl.read_csv()
-    X, Y, metadata = dl.vectorize(raw_data)
+    X, Y, metadata, trust = dl.vectorize(raw_data, flatten_tasks=False)
+    #X = np.concatenate((X, np.array([trust]).T), axis=1)
     #print(X)
     #print(Y)
     #for d in metadata:
@@ -291,7 +306,7 @@ if __name__ == "__main__":
 
     # plot the data
     if 0:
-        if 0:
+        if 1:
             # run PCA/dim reduction
             pca = PCA(n_components=2)
             X = StandardScaler().fit_transform(X)
@@ -312,19 +327,19 @@ if __name__ == "__main__":
         for i, label in delegability_map.items():
             #print("{}, {}".format(i, label))
             c = colors[i-1]
-            plt.scatter(X_r[discrete_y == i, 0], X_r[discrete_y == i, 1], color=c, alpha=0.8, label=label)
+            plt.scatter(jitter(X_r[discrete_y == i, 0]), jitter(X_r[discrete_y == i, 1]), color=c, alpha=0.8, label=label)
         plt.legend()
 
 
-        #for m, x, y in zip(metadata, X_r[:, 0], X_r[:, 1]):
-        #    text = task_list[m['task_id'] - 1]
+        for m, x, y in zip(metadata, X_r[:, 0], X_r[:, 1]):
+            text = task_list[m['task_id'] - 1]
             #text = str(m['task_id'])
-        #    plt.annotate(text, xy=(x, y), xytext=(-50, 10), textcoords='offset points')
+            plt.annotate(text, xy=(x, y), xytext=(-50, 10), textcoords='offset points')
 
         plt.show()
         #labels = [delegability_map]
 
-    if 0:
+    if 1:
         deleg_y = np.copy(discrete_y)
         for i,v in enumerate(deleg_y):
             #if v == 3: # NO delegation == 3
@@ -335,25 +350,44 @@ if __name__ == "__main__":
 
         # tree for DELEGATING
         X_train, X_test, y_train, y_test, m_train, m_test = train_test_split(X, deleg_y, metadata, test_size=0.4, random_state=0)
-        print("Train:")
-        print(y_train)
+        #print("Train:")
+        #print(y_train)
         print("Test:")
         print(y_test)
-        m1 = tree.DecisionTreeClassifier(max_depth=6, class_weight="balanced")
-        m1.fit(X_train, y_train)
-        y_pred1 = m1.predict(X_test)
-        print("Pred:")
-        print(y_pred1)
-        print("Accuracy, Dec Tree Depth {}: {}".format(3, accuracy_score(y_test, y_pred1)))
-        for x,yt,yp,meta in zip(X_test, y_test, y_pred1, m_test):
-            print("Task[{}]: {}: Prediction: {} Actual: {}, Features:{}".format(meta['task_id'], task_list[meta['task_id'] - 1], yp, yt, x))
-            print(m1.decision_path([x]))
+        m1 = tree.DecisionTreeClassifier(max_depth=3, class_weight="balanced")
+        scores = cross_val_score(m1, X, deleg_y, cv=3)
+        #m1.fit(X_train, y_train)
+        #y_pred1 = m1.predict(X_test)
+        #print("Pred:")
+        #print(y_pred1)
+        #print("Accuracy, Dec Tree Depth {}: {}".format(3, accuracy_score(y_test, y_pred1)))
+        print("Accuracy: {}, avg={}".format(scores, np.mean(scores)))
+        #for x,yt,yp,meta in zip(X_test, y_test, y_pred1, m_test):
+            #print("Task[{}]: {}: Prediction: {} Actual: {}, Features:{}".format(meta['task_id'], task_list[meta['task_id'] - 1], yp, yt, x))
+            #print(m1.decision_path([x]))
 
-        print("FEATURE IMPORTANCES:")
-        print(m1.feature_importances_)
-        print("TREE:")
-        graph_vis(m1, factor_list, ["Full/Partial Automation", "Human Only"])
-        # print decision tree:
+        #m1.fit(X_train, y_train)
+        skf = StratifiedShuffleSplit(n_splits=3, test_size=0.33)
+        #skf = StratifiedShuffleSplit(n_splits=2, test_size=0.5)
+        for train, test in skf.split(X, deleg_y):
+            xx_train = [X[i] for i in train]
+            yy_train = [deleg_y[i] for i in train]
+            xx_test = [X[i] for i in test]
+            yy_test = [deleg_y[i] for i in test]
+            print("{} , {}".format(train, test))
+            m1.fit(xx_train, yy_train)
+            y_pred = m1.predict(xx_test)
+            print("Accuracy: {}, f1: {}".format(accuracy_score(yy_test, y_pred), f1_score(yy_test, y_pred)))
+            #y_pred = m1.predict(X_test)
+            #print("Accuracy: {}".format(accuracy_score(y_test, y_pred)))
+            print("FEATURE IMPORTANCES:")
+            print(m1.feature_importances_)
+        factorlabels = factor_list.copy()
+        #factorlabels.append("trust")
+        #graph_vis(m1, factor_list.append("Trust"), ["Full/Partial Automation", "Human Only"])
+        m1.fit(X, deleg_y)
+        graph_vis(m1, factorlabels, ["Human Control", "Delegate"])
+            # print decision tree:
 
     if 0:
         #for i,v in enumerate(discrete_y):
@@ -362,14 +396,14 @@ if __name__ == "__main__":
 
         lb = LabelBinarizer()
         bin_y = lb.fit_transform(discrete_y)
-        X_train, X_test, y_train, y_test = train_test_split(X, bin_y, test_size=0.4, random_state=0)
+        X_train, X_test, y_train, y_test = train_test_split(X, bin_y, test_size=0.5, random_state=0)
 
         print("Train:")
         print(y_train)
         print("Test:")
         print(y_test)
-        m1 = tree.DecisionTreeClassifier(max_depth=2)
-        m2 = tree.DecisionTreeClassifier(max_depth=3)
+        m1 = tree.DecisionTreeClassifier(max_depth=2, class_weight="balanced")
+        m2 = tree.DecisionTreeClassifier(max_depth=4, class_weight="balanced")
         m1.fit(X_train, y_train)
         m2.fit(X_train, y_train)
         y_pred1 = m1.predict(X_test)
