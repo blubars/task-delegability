@@ -1,0 +1,54 @@
+\def\year{2018}\relax
+%File: formatting-instruction.tex
+\documentclass[letterpaper]{article} %DO NOT CHANGE THIS
+\usepackage{aaai18}  %Required
+\usepackage{times}  %Required
+\usepackage{helvet}  %Required
+\usepackage{courier}  %Required
+\usepackage{url}  %Required
+\usepackage{graphicx}  %Required
+\frenchspacing  %Required
+\setlength{\pdfpagewidth}{8.5in}  %Required
+\setlength{\pdfpageheight}{11in}  %Required
+%PDF Info Is Required:
+  \pdfinfo{
+/Title (Not Can We, But Should We: Appropriate Levels of Automation)
+/Author (Chenhao Tan, Brian Lubars)}
+\setcounter{secnumdepth}{0}  
+ \begin{document}
+% The file aaai.sty is the style file for AAAI Press 
+% proceedings, working notes, and technical reports.
+%
+\title{Not Can We, But Should We: \\Appropriate Levels of Automation}
+
+\author{Chenhao Tan \and Brian Lubars\\
+Department of Computer Science\\
+University of Colorado, Boulder\\
+{chenhao.tan, brian.lubars}@colorado.edu\\
+}
+
+%\newcommand{\citet}[1]
+%{\citeauthor{#1} ̃\shortcite{#1}}
+%\newcommand{\citep}{\cite}
+%\newcommand{\citealp}[1]
+%{\citeauthor{#1} ̃\citeyear{#1}}
+
+\maketitle
+\begin{abstract}
+Humans and machines offer complementary abilities. Some tasks are suitable for automation (machine control), some should arguably not be automated (human control), and some are amenable to a mix of the two (human-in-the-loop or machine-in-the-loop designs). What factors go into this classification? When is one paradigm more appropriate than another? By examining factors behind task delegation, human ability, and machine ability for a variety of tasks, we aim to develop a taxonomy of task spaces which help contextualize research and design choices for designing more human-centered automated systems.
+\end{abstract}
+
+\section{Task Factors}
+Hello World.
+
+Example cite, statement \cite{lee}.
+%\begin{itemize}
+%\end{itemize}
+
+%\section{References}
+%The references section should be labeled ``References" and should appear at the very end of the paper (don't end the paper with references, and then put a figure by itself on the last page). A sample list of references is given later on in these instructions. Please use a consistent format for references. Poorly prepared or sloppy references reflect badly on the quality of your paper and your research. Please prepare complete and accurate citations.
+
+\bibliography{cite}
+\bibliographystyle{aaai}
+
+\end{document}
