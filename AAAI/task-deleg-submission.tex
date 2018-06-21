@@ -43,6 +43,10 @@ Autonomous computer systems that accomplish tasks in dynamic and uncertain envir
 
 Note: Perhaps we're less concerned with an "agent" design, and more concerned with general autonomous systems? 
 
+Since all alternatives to AI agents are currently human agents, the natural framing of the delegation question is as a choice between the two. Which tasks should AI agents take over, and which are best left to human control? Here we consider both the rational/cognitive factors: a cost-benefit analysis between utility and risk; and the affective factors: 
+
+We are additionally concerned with factors which have implications in the design of automated systems (e.g. interpretability, explanations, trust).
+
 \section{Task Delegation}
 
 \cite{milewski1} proposes a "delegation stance", a term encompassing the complex factor interactions that result in possible delegation to either a human or computer. They find this useful in combining information across disciplines, since much delegation research is between humans. Broadly, delegation factors can be broken down into three categories: delegator characteristics, delegator perception of delegate characteristics, and situational variables.
@@ -60,12 +64,14 @@ Prior research indicates that people are willing to delegate in the following sc
 Though we are focused on whether a subject is willing to delegate or not, it is worth noting that we are ignoring many situational variables relating to practical delegation. These include the frequency of delegation, the amount of monitoring done by the person delegating \cite{milewski1}, and the workload of delegator \cite{leana1986predictors}.
 
 \section{Task and Human Factors of Delegation}
-To explain the human and task factors behind a task delegation decision, we consider a model with four main dimensions: a person's \textbf{motivation} in undertaking the task, their perception of the task's \textbf{difficulty}, their perception of \textbf{risk} associated with accomplishing the task, and finally their \textbf{trust} in the AI agent to accomplish the task.
+To explain the human and task factors behind a task delegation decision, we consider a model with four main dimensions: a person's \textbf{motivation} in undertaking the task, their perception of the task's \textbf{difficulty}, their perception of \textbf{risk} associated with accomplishing the task, and finally their \textbf{trust} in the AI agent to accomplish the task. 
 
-We propose that an AI delegation decision depends on factors related to task traits, task-specific personality traits, and general personality traits.
+% We will explain and motivate each task in more detail later, but first we will explain the high-level interaction between the variables.
 
-\subsection{Purpose}
-The purpose dimension examines the reasons someone may be interested in accomplishing a given task and to the expected utility that accompanies the task's successful completion. How important is accomplishing this task, and why? Is the task personally meaningful? Is it a stepping-stone to a larger goal, or an end in itself? We further decompose purpose into three sub-factors: the \textbf{intrinsic motivation} or interest, \textbf{goal}, and the \textbf{utility}/importance of the task.
+%We propose that an AI delegation decision depends on factors related to task traits, task-specific personality traits, and general personality traits.
+
+\subsection{Motivation}
+The motivation dimension examines the reasons someone may be interested in accomplishing a given task and to the expected utility that accompanies the task's successful completion. How important is accomplishing this task, and why? Is the task personally meaningful? Is it a stepping-stone to a larger goal, or an end in itself? We further decompose purpose into three sub-factors: the \textbf{intrinsic motivation} or interest, \textbf{goal}, and the \textbf{utility}/importance of the task.
 
 According to Locke, motivation and cognition are collectively responsible for determining action. Motivation is an energizing function that helps initiate and sustain task-related actions, and arises through interactions between a person and the environment \cite{latham2005work}. Motivation can affect action by directing our attention towards achieving values or goals, and by regulating the intensity and persistence of actions. Cognition matters because we can choose which values or goals to act on and adjust our values through thought \cite{Locke-motivation-2000}. Since motivation drives action, people are unlikely to choose self-delegate a task for which they have no motivation if given a choice. This suggests \textbf{intrinsic motivation} to be a likely factor in task delegation.
 
@@ -99,33 +105,52 @@ Self-efficacy is also thought to affect motivation.  Individuals with low self-e
 We propose that self-efficacy can be at least partially explained in terms of personal experience/familiarity with the task and the skills or abilities required. More experience with the task would logically give rise to a deeper understanding of the challenges, strategies, and skills required to complete the task. If the person feels that they have the necessary abilities, then their self-efficacy would rise. [cite]
 
 \subsection{Risk}
-Risk is the third major dimension. Risk can be considered as the [cite: definition?]. We propose it is composed of personal accountability for the task outcome, the probability of errors, and the cost (or magnitude) of those errors. 
+Risk is the third major dimension. Risk can be considered as the [cite: definition?]. We propose it is composed of personal \textbf{accountability} for the task outcome, the \textbf{probability of errors}, and the \textbf{cost (or magnitude) of those errors}.
 
-Cost-benefit analysis? Minimize error, maximize utility
+One way to think about delegation is in terms of a rational cost-benefit analysis in which a person attempts to minimize costs and maximize utility when considering the costs, risks, and benefits of each agent \cite{castelfranchi-deleg-1998}. However, if the costs and benifits are uncertain, risk becomes important. In practical evalutations in decisions to delegate between agents, to delegate is to take a risk. It amounts to a bet based on the probability to win or lose and the costs and benefits of the outcomes \cite{castelfranchi-deleg-1998}. 
+
+Lewandowsky et al. (2000) found that trust was a bigger factor in a decision to delegate to automation than to delegate to a person, and suggested that ultimate responsiblity for the delegation may play a role. If people perceive delegation as spreading responsibility, as perhaps they do when delegating to a person, then they may be more likely to delegate. Interestingly, Stout et. al (2014) found users more likely to delegate to an autonomous booking agent as accountability increased, and speculated that perhaps subjects saw the delegation as a means of reducing personal responsibility for errors. We will refer to the degree of personal responsibility or blame as accountability. 
 
 \subsection{Trust}
-Trust has enjoyed an extensive interest within the computer science community. Here, we will consider trust as a combination of perceived agent ability, perceived agent reliability, and perceived \textbf{value alignment}.
+Trust has enjoyed an extensive interest within the computer science community. We will use the definition of trust as "the attitude that an agent will help achieve an individual's goals in a situation characterized by uncertainty and vulnerability" \cite{lee}. Because of the potential of automation to benefit society when used properly, factors behind appropriate degrees of reliance have been studied. Trust is generally accepted as the most salient factor. People may over-trust or under-trust automation, resulting in misuse or disuse of the automation, respectively. Ideally, the amount of trust should match the actual capabilities of the system \cite{lee}. 
 
-Trust is "the attitude that an agent will help achieve an individual's goals in a situation characterized by uncertainty and vulnerability" \cite{lee}. Because of the potential of automation to benefit society when used properly, factors behind appropriate degrees of reliance have been studied \cite{lee}. Trust is generally accepted as the most salient factor. People may over-trust or under-trust automation, resulting in misuse or disuse of the automation, respectively. 
+As automation grows in complexity and uncertainty, a user's complete understanding of the automation becomes more intractable. Affective trust helps relax the cognitive demands of evaluating choice and expectations, enabling people to still make appropriate judgments \cite{lee}. On the other hand, in situations where there is no uncertainty or variability (for example, simple deterministic systems or . Similarly, in situations where there is little choice, one may still choose to delegate even if there is low trust if the possible utility is positive \cite{}. 
 
-As automation grows in complexity and uncertainty, a user's complete understanding of the automation becomes more intractable. Affective trust helps relax the cognitive demands of evaluating choice and expectations, enabling people to still make appropriate judgments \cite{lee}. 
+Before direct evidence is gathered on the situation (as in decisions about initial delegation to automation), trust may be a combination of two things: first, a propensity to trust can be measured as a personality trait, independent of the situation. Second, on other relevant sources of information. These may include "past experiences in similar situations", indirect influences such as reputation or gossip, institutional and organizational rules and structures, or social/cultural norms \cite{lee}.
 
-In a framework 
+Lee and Moray (1992) identified three factors as a basis for trust in automation. These factors were performance, process, and purpose. Performance describes the experience with the operation of the automation and its success in reliably achieving the operator's goals. It includes reliability, predictability, and ability. Process refers more to the characteristics of the AI agent rather than specific observations of the automation's operation. Examples include dependability, integrity, consistency, openness, and interpretability. Finally, purpose depends on the automation's intent, and is similar to value alignment or motivation of the AI agent. Since the automation itself does not have intent, this basis may depend on the designer's intent instead.
 
-Although trust is gen
+Here, we will consider trust as a combination of perceived agent \textbf{ability}, agent \textbf{interpretability/ability to explain itself}, and perceived \textbf{value alignment}. Each of these is a variable in one of the basis of trust in automation laid out by Lee and Moray (1992).
 
-\subsection{Task Factors}
-\begin{enumerate}
-    \item Task Complexity
-    \item Task Importance (?)
-    \item Task Difficulty
-    \item Task Variability
-\end{enumerate}
+\subsection{Model}
 
-%\section{References}
-%The references section should be labeled ``References" and should appear at the very end of the paper (don't end the paper with references, and then put a figure by itself on the last page). A sample list of references is given later on in these instructions. Please use a consistent format for references. Poorly prepared or sloppy references reflect badly on the quality of your paper and your research. Please prepare complete and accurate citations.
+How do each of these high-level factors interact?
+
+Risk moderates trust. Risk is similar to uncertainty and vulnerability, the situational conditions necessary for trust to be salient \cite{lee}.
+
+Motivation describes how invested someone is in the task, i.e. how much effort they are willing to put in. Difficulty determines the amount of effort the task will take the person. We hypothesize that people are more likely to delegate tasks which they find difficult (or have low confidence in their abilities), and less likely to delegate tasks which they are highly invested in. 
+
+Finally, if risk is very high, people may be more resistant to delegating even if they are not personally invested in the task.
+
+\begin{figure}[h]
+  \centering
+  %\includegraphics[width=15cm]{ds_mixed.png}
+  \includegraphics[width=8cm]{model-1.png}
+  \label{1}
+  \caption{Factors behind task delegability}
+\end{figure}
+
+%\subsection{Task Factors}
+%\begin{enumerate}
+%    \item Task Complexity
+%    \item Task Importance (?)
+%    \item Task Difficulty
+%    \item Task Variability
+%\end{enumerate}
 
 \section{Survey Design}
+TODO...
+
 For the given task, please evaluate 
 \subsection{Purpose}
 \subsection{Difficulty}
@@ -151,6 +176,18 @@ Split the 200 tasks into training, validation, and test data (1/3, 1/3, 1/3)? Us
 
 \subsection{Clustering?}
 People will use different thought processes and considerations when arriving at a delegation decision. For example, one person may tend to value personal meaning and motivation more than another person, who may favor utility along a more logical cost-benefit analysis. Maybe we can cluster on the factors and labels to produce different types of decision processes. May have to use individual responses rather than averaged task responses for this to work. 
+
+\section{Possible Design Implications}
+
+\subsection{Trust Considerations}
+Design decisions meant to improve trust are obviously best-spent on situations in which trust has more weight in delegability decisions. Prior research indicates that such designs may include interpretability, explanations, personality similarity, social norms, but the specific task situations that lend themselves to each of those choices is not in the scope of this paper.
+
+In addition to trust in the AI agent itself, trust may be fostered through intentionality and value-alignment of the system's designer/manufacturer. Accountability on their part helps to align incentives and make value-alignment more likely. Alternatively, institutional trust may be improved in leau of trust in the agent by developing regulations or certifications which people can trust instead [cite].
+
+Finally, if task familiarity and confidence are more likely to lead to reliance, then perhaps explanations of skills or strategies will help to encourage familiarity with both the task and the agent, helping to improve vicarious task knowledge (and thus self-efficacy) as well as trust.
+
+%\section{References}
+%The references section should be labeled ``References" and should appear at the very end of the paper (don't end the paper with references, and then put a figure by itself on the last page). A sample list of references is given later on in these instructions. Please use a consistent format for references. Poorly prepared or sloppy references reflect badly on the quality of your paper and your research. Please prepare complete and accurate citations.
 
 \bibliography{cite}
 \bibliographystyle{aaai}
