@@ -1,5 +1,11 @@
 # Status
 
+## 7/11/18
+* Submitted application to IRB
+* Completed survey
+* Generating task lists from conference paper topics:
+  * [NIPS](https://papers.nips.cc/book/advances-in-neural-information-processing-systems-30-2017), [ICML](http://proceedings.mlr.press/v70/), [KDD](http://www.kdd.org/kdd2018/accepted-papers), [CVPR](http://openaccess.thecvf.com/CVPR2018.py), [ACL](http://www.aclweb.org/anthology/P/P17/), [EMNLP](http://emnlp2017.net/accepted-papers.html), [ICRA](https://ieeexplore.ieee.org/xpl/conhome.jsp?punumber=1000639), [ROS](https://roscon.ros.org/2017/#program), [ICCV](http://openaccess.thecvf.com/ICCV2017.py)
+
 ## 6/12/18
 * Task framework: https://docs.google.com/document/d/13e3pTEMUHLyCIqWE2OolESt-AuVgc0IyBvmKsyff_34/edit#
 * TODO for this week:
