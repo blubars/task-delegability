@@ -1,5 +1,14 @@
 # Status
 
+## 7/24/18
+* IRB approved!!
+* Task list:
+  * mostly finalized, going to add a few more media. Sources: NYT, Washington Post, WSJ, Wired
+  * Each of us rank each task: 1 (don't want), 2 (okay), 3 (want)
+* Need to finish creating survey on AMT this week
+* Test finished survey within lab group, use a few tasks
+* Aim for survey deployment next week.
+
 ## 7/11/18
 * Submitted application to IRB
 * Completed survey
