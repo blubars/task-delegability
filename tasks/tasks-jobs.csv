@@ -1,102 +1,102 @@
-Task,Job,Automation Likelihood,Link,Chenhao,Brian
-,"Supervisors of Mechanics, Installers, and Repairers",0.003,,3,
-,Mental Health and Substance Abuse Social Workers,0.0031,,3,
-,Dietitians and Nutritionists,0.0039,,3,
-,Physicians and Surgeons,0.0042,,3,
-,Elementary School Teachers,0.0044,,3,
-,Human Resources Managers,0.0055,,3,
-,Clergy,0.0081,,3,
-,Registered Nurses,0.009,,3,
-,Mechanical Engineers,0.011,,3,
-,Coaches and Scouts,0.013,,3,
-,Architects,0.018,,3,
-,Physical Therapists,0.021,,3,
-,Photographers,0.021,,3,
-,"Child, Family, and School Social Workers",0.028,,3,
-,Lawyers,0.035,,3,
-,"Meeting, Convention, and Event Planners",0.037,,3,
-,Writers and Authors,0.038,,3,
-,"Farmers, Ranchers, and Other Agricultural Managers",0.047,,3,
-,Editors,0.055,,2,
-,Police and Sheriff’s Patrol Officers,0.098,,3,
-,Travel Agents,0.099,,2,
-,Chefs and Head Cooks,0.1,,3,
-,"Hairdressers, Hairstylists, and Cosmetologists",0.11,,3,
-,Air Traffic Controllers,0.11,,3,
-,"Software Developers, Systems Software",0.13,,3,
-,Electricians,0.15,,2,
-,Firefighters,0.17,,3,
-,"Airline Pilots, Copilots, and Flight Engineers",0.18,,3,
-,Concierges,0.21,,3,
-,Financial Analysts,0.23,,3,
-,Probation Officers and Correctional Treatment Specialists,0.25,,3,
-,"Managers, All Other",0.25,,3,
-,Athletes and Sports Competitors,0.28,,2,
-,"Plumbers, Pipefitters, and Steamfitters",0.35,,3,
-,Flight Attendants,0.35,,3,
-,Actors,0.37,,3,
-,Interpreters and Translators,0.38,,3,
-,"Judges, Magistrate Judges, and Magistrates",0.4,,3,
-,Economists,0.43,,3,
-,Historians,0.44,,3,
-,Computer Programmers,0.48,,3,
-,"Police, Fire, and Ambulance Dispatchers",0.49,,3,
-,"Installation, Maintenance, and Repair Workers, All Other",0.5,,3,
-,Hazardous Materials Removal Workers,0.53,,3,
-,Massage Therapists,0.54,,3,
-,Customer Service Representatives,0.55,,3,
-,Teacher Assistants,0.56,,3,
-,Cost Estimators,0.57,,2,
-,"Transportation, Storage, and Distribution Managers",0.59,,3,
-,Construction and Building Inspectors,0.63,,3,
-,Stock Clerks and Order Fillers,0.64,,3,
-,Machinists,0.65,,2,
-,"Heating, Air Conditioning, and Refrigeration Mechanics and Installers",0.65,,2,
-,"Janitors and Cleaners, Except Maids and Housekeeping Cleaners",0.66,,3,
-,"Bus Drivers, Transit and Intercity",0.67,,3,
-,"Lifeguards, Ski Patrol, and Other Recreational Protective Serice Worker",0.67,,2,
-,Dental Hygienists,0.68,,3,
-,Postal Service Mail Carriers,0.68,,2,
-,Light Truck or Delivery Services Drivers,0.69,,3,
-,Maids and Housekeeping Cleaners,0.69,,3,
-,Home Appliance Repairers,0.72,,3,
-,Personal Care Aides,0.74,,3,
-,Bartenders,0.77,,3,
-,Barbers,0.8,,3,
-,Fishers and Related Fishing Workers,0.83,,3,
-,"Railroad Brake, Signal, and Switch Operators",0.83,,3,
-,Septic Tank Servicers and Sewer Pipe Cleaners,0.83,,3,
-,Security Guards,0.84,,3,
-,"Tailors, Dressmakers, and Custom Sewers",0.84,,3,
-,Proofreaders and Copy Markers,0.84,,3,
-,Parking Enforcement Workers,0.84,,3,
-,Executive Secretaries and Executive Administrative Assistants,0.86,,3,
-,Real Estate Sales Agents,0.86,,3,
-,Parking Lot Attendants,0.87,,2,
-,Technical Writers,0.89,,3,
-,Taxi Drivers and Chauffeurs,0.89,,3,
-,Roofers,0.9,,2,
-,Appraisers and Assessors of Real Estate,0.9,,3,
-,Tour Guides and Escorts,0.91,,3,
-,Insurance Sales Agents,0.92,,3,
-,Retail Salespersons,0.92,,3,
-,Butchers and Meat Cutters,0.93,,3,
-,"Tax Examiners and Collectors, and Revenue Agents",0.93,,3,
-,Accountants and Auditors,0.94,,3,
-,Waiters and Waitresses,0.94,,3,
-,Bicycle Repairers,0.94,,3,
-,Paralegals and Legal Assistants,0.94,,3,
-,"Hotel, Motel, and Resort Desk Clerks",0.94,,3,
-,Electrical and Electronic Equipment Assemblers,0.95,,3,
-,Jewelers and Precious Stone and Metal Workers,0.95,,3,
-,"Counter Attendants, Cafeteria, Food Concession, and Coffee Shop",0.96,,3,
-,Surveying and Mapping Technicians,0.96,,3,
-,"Cooks, Restaurant",0.96,,3,
-,Cashiers,0.97,,3,
-,"Credit Authorizers, Checkers, and Clerks",0.97,,3,
-,"Claims Adjusters, Examiners, and Investigators",0.98,,3,
-,Tellers,0.98,,2,
-,"Umpires, Referees, and Other Sports Officials",0.98,,3,
-,Loan Officers,0.98,,3,
-,Tax Preparers,0.99,,3,
-,Telemarketers,0.99,,3,
+Task,Job,Automation Likelihood,Link,Chenhao,Brian,Avg
+,"Supervisors of Mechanics, Installers, and Repairers",0.003,,3,3,3
+,Mental Health and Substance Abuse Social Workers,0.0031,,3,3,3
+,Dietitians and Nutritionists,0.0039,,3,3,3
+,Physicians and Surgeons,0.0042,,3,3,3
+,Elementary School Teachers,0.0044,,3,3,3
+,Human Resources Managers,0.0055,,3,3,3
+,Clergy,0.0081,,3,3,3
+,Registered Nurses,0.009,,3,3,3
+,Mechanical Engineers,0.011,,3,3,3
+,Coaches and Scouts,0.013,,3,3,3
+,Architects,0.018,,3,3,3
+,Physical Therapists,0.021,,3,3,3
+,Photographers,0.021,,3,3,3
+,"Child, Family, and School Social Workers",0.028,,3,2,2.5
+,Lawyers,0.035,,3,3,3
+,"Meeting, Convention, and Event Planners",0.037,,3,3,3
+,Writers and Authors,0.038,,3,3,3
+,"Farmers, Ranchers, and Other Agricultural Managers",0.047,,3,3,3
+,Editors,0.055,,2,2,2
+,Police and Sheriff’s Patrol Officers,0.098,,3,3,3
+,Travel Agents,0.099,,2,3,2.5
+,Chefs and Head Cooks,0.1,,3,3,3
+,"Hairdressers, Hairstylists, and Cosmetologists",0.11,,3,3,3
+,Air Traffic Controllers,0.11,,3,3,3
+,"Software Developers, Systems Software",0.13,,3,3,3
+,Electricians,0.15,,2,3,2.5
+,Firefighters,0.17,,3,2,2.5
+,"Airline Pilots, Copilots, and Flight Engineers",0.18,,3,3,3
+,Concierges,0.21,,3,2,2.5
+,Financial Analysts,0.23,,3,2,2.5
+,Probation Officers and Correctional Treatment Specialists,0.25,,3,2,2.5
+,"Managers, All Other",0.25,,3,3,3
+,Athletes and Sports Competitors,0.28,,2,1,1.5
+,"Plumbers, Pipefitters, and Steamfitters",0.35,,3,2,2.5
+,Flight Attendants,0.35,,3,3,3
+,Actors,0.37,,3,1,2
+,Interpreters and Translators,0.38,,3,3,3
+,"Judges, Magistrate Judges, and Magistrates",0.4,,3,3,3
+,Economists,0.43,,3,2,2.5
+,Historians,0.44,,3,3,3
+,Computer Programmers,0.48,,3,3,3
+,"Police, Fire, and Ambulance Dispatchers",0.49,,3,2,2.5
+,"Installation, Maintenance, and Repair Workers, All Other",0.5,,3,2,2.5
+,Hazardous Materials Removal Workers,0.53,,3,2,2.5
+,Massage Therapists,0.54,,3,3,3
+,Customer Service Representatives,0.55,,3,3,3
+,Teacher Assistants,0.56,,3,2,2.5
+,Cost Estimators,0.57,,2,2,2
+,"Transportation, Storage, and Distribution Managers",0.59,,3,2,2.5
+,Construction and Building Inspectors,0.63,,3,3,3
+,Stock Clerks and Order Fillers,0.64,,3,2,2.5
+,Machinists,0.65,,2,2,2
+,"Heating, Air Conditioning, and Refrigeration Mechanics and Installers",0.65,,2,3,2.5
+,"Janitors and Cleaners, Except Maids and Housekeeping Cleaners",0.66,,3,3,3
+,"Bus Drivers, Transit and Intercity",0.67,,3,3,3
+,"Lifeguards, Ski Patrol, and Other Recreational Protective Serice Worker",0.67,,2,3,2.5
+,Dental Hygienists,0.68,,3,2,2.5
+,Postal Service Mail Carriers,0.68,,2,2,2
+,Light Truck or Delivery Services Drivers,0.69,,3,3,3
+,Maids and Housekeeping Cleaners,0.69,,3,3,3
+,Home Appliance Repairers,0.72,,3,1,2
+,Personal Care Aides,0.74,,3,3,3
+,Bartenders,0.77,,3,3,3
+,Barbers,0.8,,3,3,3
+,Fishers and Related Fishing Workers,0.83,,3,1,2
+,"Railroad Brake, Signal, and Switch Operators",0.83,,3,1,2
+,Septic Tank Servicers and Sewer Pipe Cleaners,0.83,,3,2,2.5
+,Security Guards,0.84,,3,3,3
+,"Tailors, Dressmakers, and Custom Sewers",0.84,,3,2,2.5
+,Proofreaders and Copy Markers,0.84,,3,2,2.5
+,Parking Enforcement Workers,0.84,,3,3,3
+,Executive Secretaries and Executive Administrative Assistants,0.86,,3,3,3
+,Real Estate Sales Agents,0.86,,3,3,3
+,Parking Lot Attendants,0.87,,2,3,2.5
+,Technical Writers,0.89,,3,2,2.5
+,Taxi Drivers and Chauffeurs,0.89,,3,3,3
+,Roofers,0.9,,2,1,1.5
+,Appraisers and Assessors of Real Estate,0.9,,3,3,3
+,Tour Guides and Escorts,0.91,,3,3,3
+,Insurance Sales Agents,0.92,,3,2,2.5
+,Retail Salespersons,0.92,,3,3,3
+,Butchers and Meat Cutters,0.93,,3,2,2.5
+,"Tax Examiners and Collectors, and Revenue Agents",0.93,,3,2,2.5
+,Accountants and Auditors,0.94,,3,2,2.5
+,Waiters and Waitresses,0.94,,3,3,3
+,Bicycle Repairers,0.94,,3,3,3
+,Paralegals and Legal Assistants,0.94,,3,2,2.5
+,"Hotel, Motel, and Resort Desk Clerks",0.94,,3,3,3
+,Electrical and Electronic Equipment Assemblers,0.95,,3,1,2
+,Jewelers and Precious Stone and Metal Workers,0.95,,3,3,3
+,"Counter Attendants, Cafeteria, Food Concession, and Coffee Shop",0.96,,3,3,3
+,Surveying and Mapping Technicians,0.96,,3,1,2
+,"Cooks, Restaurant",0.96,,3,2,2.5
+,Cashiers,0.97,,3,3,3
+,"Credit Authorizers, Checkers, and Clerks",0.97,,3,2,2.5
+,"Claims Adjusters, Examiners, and Investigators",0.98,,3,2,2.5
+,Tellers,0.98,,2,3,2.5
+,"Umpires, Referees, and Other Sports Officials",0.98,,3,3,3
+,Loan Officers,0.98,,3,2,2.5
+,Tax Preparers,0.99,,3,2,2.5
+,Telemarketers,0.99,,3,1,2
