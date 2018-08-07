@@ -1,256 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
 <!-- HIT template: Survey-v3.0 --><!-- The following snippet enables the 'responsive' behavior on smaller screens -->
-<meta content="width=device-width,initial-scale=1" name="viewport" />
-<section class="container" id="Survey"><!-- Instructions -->
-<div class="row">
-<div class="col-xs-12 col-md-12">
-<div class="panel panel-primary">
-<!-- WARNING: the ids "collapseTrigger" and "instructionBody" are being used to enable expand/collapse feature -->
-<a class="panel-heading" href="javascript:void(0);" id="collapseTrigger"><strong>Survey Instructions</strong> <span class="collapse-text">(Click to expand)</span> </a>
-<div class="panel-body" id="instructionBody">
-<p>Enter instructions for your survey:</p>
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <script type='text/javascript' src='https://s3.amazonaws.com/mturk-public/externalHIT_v1.js'></script>
 
-<ul>
-	<li>Instruction #1</li>
-	<li>Instruction #2</li>
-	<li>Instruction #3</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<!-- End Instructions --><!-- Survey Layout -->
+<!-- Please note that Bootstrap CSS/JS and JQuery are 3rd party libraries that may update their url/code at any time. Amazon Mechanical Turk (MTurk) is including these libraries as a default option for you, but is not responsible for any changes to the external libraries -->
+<!-- External CSS references -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<script>
-// AJAX request to load the task from the server
-var task_id = 2;
-
-function getTask(id) {
-    //var url = "127.0.0.1/?t=" + id;
-    var url = "?t=" + id;
-    var request = new XMLHttpRequest();
-    request.open('GET', url, true);
-    request.responseType = 'text';
-    request.onload = function() {
-      console.log(request.response);
-      console.log(request.status);
-    };
-    request.send();
-}
-
-getTask(task_id);
-
-</script>
-
-<div class="row" id="workContent">
-<div class="col-xs-10 col-xs-offset-1">
-
-<div class="panel panel-primary">
-<div class="panel-heading">Demographics</div>
-<div class="panel-body">
-The following questions will help us to understand the study population and representativeness.
-</div>
-
-<!-- <div class="col-sm-10 col-sm-offset-1"> -->
-<div class="panel panel-default qinside"><div class="panel-body">
-<label>1. What best describes your gender? </label>
-<div class="radio"><label><input name="gender" required="" type="radio" value="male" />Male </label></div>
-<div class="radio"><label><input name="gender" required="" type="radio" value="female" />Female </label></div>
-<div class="radio"><label><input name="gender" required="" type="radio" value="other" />Prefer to self-describe: </label><input type="text" name="gender-input"></div>
-<div class="radio"><label><input name="gender" required="" type="radio" value="blank" />Prefer not to say </label></div>
-</div></div>
-
-<div class="panel panel-default qinside"><div class="panel-body">
-<label>2. What is your age?</label>
-<div class="radio"><label><input name="age" required="" type="radio" value="18-25" />18-25</label></div>
-<div class="radio"><label><input name="age" required="" type="radio" value="26-35" />26-35</label></div>
-<div class="radio"><label><input name="age" required="" type="radio" value="36-45" />36-45</label></div>
-<div class="radio"><label><input name="age" required="" type="radio" value="46-55" />46-55</label></div>
-<div class="radio"><label><input name="age" required="" type="radio" value="56-65" />56-65</label></div>
-<div class="radio"><label><input name="age" required="" type="radio" value="66-75" />66-75</label></div>
-<div class="radio"><label><input name="age" required="" type="radio" value="76 or older" />76 or older</label></div>
-<div class="radio"><label><input name="age" required="" type="radio" value="blank" />Prefer not to say</label></div>
-</div></div>
-
-<div class="panel panel-default qinside"><div class="panel-body">
-<label>3. How would you rate your level of computer proficiency? </label>
-<div class="radio"><label><input name="tech-level" required="" type="radio" value="5" />Far above average</label></div>
-<div class="radio"><label><input name="tech-level" required="" type="radio" value="4" />Slightly above average</label></div>
-<div class="radio"><label><input name="tech-level" required="" type="radio" value="3" />Average</label></div>
-<div class="radio"><label><input name="tech-level" required="" type="radio" value="2" />Slightly below average</label></div>
-<div class="radio"><label><input name="tech-level" required="" type="radio" value="1" />Far below average</label></div>
-<div class="radio"><label><input name="tech-level" required="" type="radio" value="blank" />Prefer not to say</label></div>
-</div></div>
-
-<div class="panel panel-default qinside"><div class="panel-body">
-<label>4. What is the highest degree or level of school you have completed? (If currently enrolled, highest degree received)</label>
-<div class="radio"><label><input name="edu-level" required="" type="radio" value="1" />Some high school, no diploma, and below</label></div>
-<div class="radio"><label><input name="edu-level" required="" type="radio" value="2" />High school graduate, diploma or equivalent (for example: GED)</label></div>
-<div class="radio"><label><input name="edu-level" required="" type="radio" value="3" />Some college credit, no degree</label></div>
-<div class="radio"><label><input name="edu-level" required="" type="radio" value="4" />Trade/technical/vocational training</label></div>
-<div class="radio"><label><input name="edu-level" required="" type="radio" value="5" />Bachelor's degree, and above</label></div>
-<div class="radio"><label><input name="edu-level" required="" type="radio" value="blank" />Prefer not to say</label></div>
-</div></div>
-
-</div> <!-- panel primary -->
-<!-- </div> -->
-
-<div class="panel panel-primary">
-<div class="panel-heading">AI (automation) Task Study</div>
-<div class="panel-body">
-<p>The following questions are the primary focus of this study. </p>
-
-<p><b>Important:</b> We will display a task. When answering the following questions, please carefully consider the task and your beliefs about an <span style="color:green"><b>AI (artificial intelligence) agent</b></span> performing the task.
-
-<p>(What is an AI agent? You can think of it as a computer, machine, robot, or some other form of automation.)<p>
-<p style="font-size:1.2em;"><b>Here is the task: </b><br /></p>
-<div class="well well-sm"><span class="task">TASK</span></div>
-</div>
-
-<div class="panel panel-default qinside">
-<div class="panel-heading">
-<p><b>5. For each of the following statements, please indicate the extent to which you agree or disagree for the above task:</b> (TODO: TASK)</p>
-</div>
-<div class="panel-body">
-
-<label class="statement">I trust the AI agent's ability to reliably complete the task.</label>
-<ul class="likert">
-	<li><label><input name="l-trust" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-trust" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-trust" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-trust" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-trust" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">Understanding the reasons behind the AI agent's actions is important for me to trust the AI agent (e.g, explanations).</label>
-<ul class="likert">
-	<li><label><input name="l-process" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-process" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-process" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-process" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-process" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">I trust the AI agent's actions to protect my interests and align with my values for this task.</label>
-<ul class="likert">
-	<li><label><input name="l-values" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-values" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-values" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-values" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-values" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">In case of failure, someone needs to be held accountable.</label>
-<ul class="likert">
-	<li><label><input name="l-accountable" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-accountable" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-accountable" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-accountable" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-accountable" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">The task is very likely to fail because of a complex or changing environment/situation.</label>
-<ul class="likert">
-	<li><label><input name="l-uncertainty" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-uncertainty" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-uncertainty" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-uncertainty" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-uncertainty" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">Failure will result in a substantial negative impact on my life or the life of others.</label>
-<ul class="likert">
-	<li><label><input name="l-impact" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-impact" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-impact" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-impact" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-impact" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">I would want to perform this task, even without needing to; for example, it is fun, interesting, or meaningful to me.</label>
-<ul class="likert">
-	<li><label><input name="l-intrinsic" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-intrinsic" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-intrinsic" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-intrinsic" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-intrinsic" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">I am interested in learning how to master this task, not just in the completing the task.</label>
-<ul class="likert">
-	<li><label><input name="l-learning" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-learning" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-learning" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-learning" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-learning" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">I consider this task important; I would feel committed to completing this task.</label>
-<ul class="likert">
-	<li><label><input name="l-important" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-important" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-important" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-important" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-important" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">This task requires a great deal of time or effort to complete.</label>
-<ul class="likert">
-	<li><label><input name="l-effort" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-effort" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-effort" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-effort" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-effort" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">I am confident in my own abilities to complete this task.</label>
-<ul class="likert">
-	<li><label><input name="l-abilities" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-abilities" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-abilities" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-abilities" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-abilities" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">Attention check, please choose 'Strongly Disagree' for this one.</label>
-<ul class="likert">
-	<li><label><input name="sanity-check" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="sanity-check" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="sanity-check" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="sanity-check" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="sanity-check" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-<label class="statement">It takes significant training or expertise to be qualified for this task.</label>
-<ul class="likert">
-	<li><label><input name="l-expertise" type="radio" value="5" />Strongly agree</label></li>
-	<li><label><input name="l-expertise" type="radio" value="4" />Agree</label></li>
-	<li><label><input name="l-expertise" type="radio" value="3" />Neutral</label></li>
-	<li><label><input name="l-expertise" type="radio" value="2" />Disagree</label></li>
-	<li><label><input name="l-expertise" type="radio" value="1" />Strongly disagree</label></li>
-</ul>
-
-</div>
-</div>
-
-<br />
-
-<div class="panel panel-danger qinside">
-<div class="panel-heading">
-<label>6. What level of AI/machine assistance would you prefer for the given (above) task, if any?</label>
-</div>
-<div class="panel-body">
-<div class="radio"><label><input name="label" required="" type="radio" value="1" /><b>Full AI control:</b> decisions and actions are made automatically by the AI once the task is assigned; the human does nothing.</label></div>
-<div class="radio"><label><input name="label" required="" type="radio" value="2" /><b>The AI leads and the human assists:</b> the AI performs the task, but asks for suggestions/confirmation when appropriate.</label></div>
-<div class="radio"><label><input name="label" required="" type="radio" value="3" /><b>The human leads and the AI assists:</b> the person does the task mostly on their own, but AI offers help when appropriate (e.g., human gets stuck or AI sees possible mistakes).</label></div>
-<div class="radio"><label><input name="label" required="" type="radio" value="4" /><b>No AI assistance:</b> the person does the task completely on their own.</label></div>
-</div></div>
-
-</div> <!-- study panel -->
-</div> <!-- col -->
-</div> <!-- work content -->
-<!-- End Survey Layout --></section>
-<!-- Please note that Bootstrap CSS/JS and JQuery are 3rd party libraries that may update their url/code at any time. Amazon Mechanical Turk (MTurk) is including these libraries as a default option for you, but is not responsible for any changes to the external libraries --><!-- External CSS references -->
-<link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" integrity="sha384-IS73LIqjtYesmURkDE9MXKbXqYA8rvKEp/ghicjem7Vc3mGRdQRptJSz60tvrB6+" rel="stylesheet" /><!-- Open internal style sheet -->
+<!-- Open internal style sheet -->
 <style type="text/css">
 .task{
   font-size:1.5em;
@@ -260,12 +20,8 @@ The following questions will help us to understand the study population and repr
 .qinside{
   margin:1em;
 }
-#collapseTrigger{
-  color:#fff;
-  display: block;
-  text-decoration: none;
-}
-.instructs{
+
+.collapse{
   color:#fff;
   display: block;
   text-decoration: none;
@@ -318,29 +74,376 @@ h1.likert-header {
   top:0;
   left:50%;
   margin-left:-6px;
-  
 }
 .likert li label {
   width:100%;
   font-weight:normal;
 }
 </style>
-<!-- Close internal style sheet --><!-- External JS references --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" integrity="sha384-s1ITto93iSMDxlp/79qhWHi+LsIi9Gx6yL+cOKDuymvihkfol83TYbLbOw+W/wv4" crossorigin="anonymous"></script><!-- Open internal javascript --><script>
-  $(document).ready(function() {
-    // Instructions expand/collapse
-    var content = $('#instructionBody');
-    var trigger = $('#collapseTrigger');
-    content.hide();
-    $('.collapse-text').text('(Click to expand)');
+<!-- Close internal style sheet -->
+<!-- External JS references -->
+
+<!-- Bootstrap 3.3 -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Open internal javascript -->
+<script>
+  function setTrigger(bodyId, triggerId, initCollapse) {
+    // Panel expand/collapse
+    var content = $(bodyId);
+    var trigger = $(triggerId);
+    if(initCollapse) {
+      content.hide();
+    } else {
+      trigger.find('.collapse-text').text('(Click to collapse)');
+    }
     trigger.click(function(){
       content.toggle();
       var isVisible = content.is(':visible');
       if(isVisible){
-        $('.collapse-text').text('(Click to collapse)');
+        trigger.find('.collapse-text').text('(Click to collapse)');
       }else{
-        $('.collapse-text').text('(Click to expand)');
+        trigger.find('.collapse-text').text('(Click to expand)');
       }
     });
     // end expand/collapse
+  }
+
+  function setSectionTrigger(buttonId, prevTrig, nextTrig, nextSect) {
+    var button = $(buttonId);
+    button.click(function() {
+      nextSection(prevTrig, nextTrig, nextSect);
+    });
+  }
+
+  function nextSection(prevTrig, nextTrig, nextSect) {
+    $(prevTrig).click();
+    var isVisible = $(nextSect).is(':visible');
+    if(!isVisible) {
+      $(nextTrig).click();
+    }
+  }
+
+  function expandSection(sect, trig) {
+    var isVisible = $(sect).is(':visible');
+    if(!isVisible) {
+      $(trig).click();
+    }
+  }
+
+  $(document).ready(function() {
+    setTrigger('#consentBody', '#collapseTrigger0', false);
+    setTrigger('#instructionBody', '#collapseTrigger1', false);
+    setTrigger('#demoBody', '#collapseTrigger2', true);
+    setTrigger('#studyBody', '#collapseTrigger3', true);
+    setSectionTrigger('#finishConsent', '#collapseTrigger0', '#collapseTrigger1', '#instructionBody');
+    setSectionTrigger('#finishInstructions', '#collapseTrigger1', '#collapseTrigger2', '#demoBody');
+    setSectionTrigger('#finishDemo', '#collapseTrigger2', '#collapseTrigger3', '#studyBody');
   });
-</script><!-- CLose internal javascript -->
+
+  function expandAll() {
+    // expand all the sections
+    expandSection('#demoBody', '#collapseTrigger2');
+    expandSection('#studyBody', '#collapseTrigger3');
+  }
+
+  function validateForm() {
+    expandAll();
+    console.log("Hello World");
+    errors = 0;
+    $("#mturk_form2 input:radio").each(function(){
+      var name = $(this).attr("name");
+      if($("input:radio[name="+name+"]:checked").length == 0){
+        $(this).parents('div').addClass('warning');
+        errors++;
+      } else {
+        $(this).parents('div').removeClass('warning');
+      }
+    });
+    if(errors > 0){
+        //$('#errorwarn').text("All fields are required");
+        return false;
+    }
+    return false;
+  }
+
+</script>
+<!-- Close internal javascript -->
+
+</head>
+<body>
+
+<section class="container" id="Survey">
+
+<!-- Consent -->
+<div class="row">
+<div class="col-xs-12 col-md-12">
+<div class="panel panel-primary">
+<a class="panel-heading collapse" href="javascript:void(0);" id="collapseTrigger0"><strong>Informed Consent</strong> <span class="collapse-text">(Click to expand)</span> </a>
+<div class="panel-body" id="consentBody">
+<p>Informed Consent for participation in research study:</p>
+
+<div class="text-center">
+  <a class="btn btn-primary" href="javascript:void(0);" role="button" id="finishConsent">Continue</a>
+</div>
+
+</div></div></div></div>
+<!-- End Consent-->
+
+<!-- Instructions -->
+<div class="row">
+<div class="col-xs-12 col-md-12">
+<div class="panel panel-default">
+<!-- WARNING: the ids "collapseTrigger" and "instructionBody" are being used to enable expand/collapse feature -->
+<a class="panel-heading collapse" href="javascript:void(0);" id="collapseTrigger1"><strong>Survey Instructions</strong> <span class="collapse-text">(Click to expand)</span> </a>
+<div class="panel-body" id="instructionBody">
+<p>Enter instructions for your survey:</p>
+
+<!-- continue to next section (Expand) -->
+<div class="text-center">
+  <a class="btn btn-primary" href="javascript:void(0);" role="button" id="finishInstructions">Continue</a>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<!-- End Instructions -->
+
+<!-- Survey Layout -->
+
+<!-- <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'> -->
+<!-- <form name='mturk_form' method='post' id='mturk_form' action='https://workersandbox.mturk.com/mturk/externalSubmit'> -->
+<form name='mturk_form2' method='post' id='mturk_form2' onsubmit="return validateForm();" action="None">
+<input type='hidden' value='' name='assignmentId' id='assignmentId'/>
+
+<div class="row" id="workContent">
+<div class="col-xs-10 col-xs-offset-1">
+
+<div class="panel panel-primary">
+  <a class="panel-heading collapse" href="javascript:void(0);" id="collapseTrigger2"><strong>Demographics</strong> <span class="collapse-text">(Click to expand)</span></a>
+<div class="panel-body" id="demoBody">
+The following questions will help us to understand the study population and representativeness.
+
+<!-- <div class="col-sm-10 col-sm-offset-1"> -->
+<!-- GENDER -->
+<div class="panel panel-default qinside"><div class="panel-body">
+<label>1. What best describes your gender? </label>
+<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="male" />Male</label></div>
+<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="female" />Female</label></div>
+<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="other" />Prefer to self-describe:</label>
+<input type="text" name="gender-input">
+</div>
+<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="blank" />Prefer not to say </label></div>
+</div></div>
+
+<!-- AGE -->
+<div class="panel panel-default qinside"><div class="panel-body">
+<label>2. What is your age?</label>
+<div class="radio"><label><input name="age" required="" type="radio" value="18-25" />18-25</label></div>
+<div class="radio"><label><input name="age" required="" type="radio" value="26-35" />26-35</label></div>
+<div class="radio"><label><input name="age" required="" type="radio" value="36-45" />36-45</label></div>
+<div class="radio"><label><input name="age" required="" type="radio" value="46-55" />46-55</label></div>
+<div class="radio"><label><input name="age" required="" type="radio" value="56-65" />56-65</label></div>
+<div class="radio"><label><input name="age" required="" type="radio" value="66-75" />66-75</label></div>
+<div class="radio"><label><input name="age" required="" type="radio" value="76 or older" />76 or older</label></div>
+<div class="radio"><label><input name="age" required="" type="radio" value="blank" />Prefer not to say</label></div>
+</div></div>
+
+<div class="panel panel-default qinside"><div class="panel-body">
+<label>3. How would you rate your level of computer proficiency? </label>
+<div class="radio"><label><input name="tech-level" required="" type="radio" value="5" />Far above average</label></div>
+<div class="radio"><label><input name="tech-level" required="" type="radio" value="4" />Slightly above average</label></div>
+<div class="radio"><label><input name="tech-level" required="" type="radio" value="3" />Average</label></div>
+<div class="radio"><label><input name="tech-level" required="" type="radio" value="2" />Slightly below average</label></div>
+<div class="radio"><label><input name="tech-level" required="" type="radio" value="1" />Far below average</label></div>
+<div class="radio"><label><input name="tech-level" required="" type="radio" value="blank" />Prefer not to say</label></div>
+</div></div>
+
+<div class="panel panel-default qinside"><div class="panel-body">
+<label>4. What is the highest degree or level of school you have completed? (If currently enrolled, highest degree received)</label>
+<div class="radio"><label><input name="edu-level" required="" type="radio" value="1" />Some high school, no diploma, and below</label></div>
+<div class="radio"><label><input name="edu-level" required="" type="radio" value="2" />High school graduate, diploma or equivalent (for example: GED)</label></div>
+<div class="radio"><label><input name="edu-level" required="" type="radio" value="3" />Some college credit, no degree</label></div>
+<div class="radio"><label><input name="edu-level" required="" type="radio" value="4" />Trade/technical/vocational training</label></div>
+<div class="radio"><label><input name="edu-level" required="" type="radio" value="5" />Bachelor's degree, and above</label></div>
+<div class="radio"><label><input name="edu-level" required="" type="radio" value="blank" />Prefer not to say</label></div>
+</div></div>
+
+<!-- continue to next section (Expand) -->
+<div class="text-center">
+  <a class="btn btn-primary" href="javascript:void(0);" role="button" id="finishDemo">Continue</a>
+</div>
+
+</div> <!-- panel primary -->
+</div> <!-- panel body -->
+
+<div class="panel panel-primary">
+<a class="panel-heading collapse" href="javascript:void(0);" id="collapseTrigger3"><strong>AI Task Study</strong> <span class="collapse-text">(Click to expand)</span></a>
+<div class="panel-body" id="studyBody">
+<p>The following questions are the primary focus of this study. </p>
+
+<p><b>Important:</b> We will display a task. When answering the following questions, please carefully consider the task and your beliefs about an <span style="color:green"><b>AI (artificial intelligence) agent</b></span> performing the task.
+
+<p><span style="color:#222">(What is an AI agent? You can think of it as a computer, machine, robot, or some other form of automation.)</span><p>
+<p style="font-size:1.2em;"><b>Here is the task: </b><br /></p>
+<div class="well well-sm"><span class="task">TASK</span></div>
+
+<div class="panel panel-default qinside">
+<div class="panel-heading">
+<p><b>5. For each of the following statements, please indicate the extent to which you agree or disagree for the above task:</b> (TODO: TASK)</p>
+</div>
+<div class="panel-body">
+
+<label class="statement">I trust the AI agent's ability to reliably complete the task.</label>
+<ul class="likert">
+	<li><label><input name="l-trust" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-trust" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-trust" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-trust" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-trust" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">Understanding the reasons behind the AI agent's actions is important for me to trust the AI agent (e.g, explanations).</label>
+<ul class="likert">
+	<li><label><input name="l-process" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-process" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-process" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-process" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-process" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">I trust the AI agent's actions to protect my interests and align with my values for this task.</label>
+<ul class="likert">
+	<li><label><input name="l-values" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-values" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-values" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-values" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-values" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">In case of failure, someone needs to be held accountable.</label>
+<ul class="likert">
+	<li><label><input name="l-accountable" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-accountable" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-accountable" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-accountable" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-accountable" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">The task is very likely to fail because of a complex or changing environment/situation.</label>
+<ul class="likert">
+	<li><label><input name="l-uncertainty" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-uncertainty" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-uncertainty" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-uncertainty" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-uncertainty" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">Failure will result in a substantial negative impact on my life or the life of others.</label>
+<ul class="likert">
+	<li><label><input name="l-impact" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-impact" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-impact" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-impact" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-impact" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">I would want to perform this task, even without needing to; for example, it is fun, interesting, or meaningful to me.</label>
+<ul class="likert">
+	<li><label><input name="l-intrinsic" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-intrinsic" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-intrinsic" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-intrinsic" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-intrinsic" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">I am interested in learning how to master this task, not just in the completing the task.</label>
+<ul class="likert">
+	<li><label><input name="l-learning" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-learning" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-learning" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-learning" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-learning" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">I consider this task important; I would feel committed to completing this task.</label>
+<ul class="likert">
+	<li><label><input name="l-important" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-important" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-important" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-important" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-important" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">This task requires a great deal of time or effort to complete.</label>
+<ul class="likert">
+	<li><label><input name="l-effort" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-effort" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-effort" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-effort" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-effort" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">I am confident in my own abilities to complete this task.</label>
+<ul class="likert">
+	<li><label><input name="l-abilities" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-abilities" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-abilities" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-abilities" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-abilities" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">Attention check, please choose 'Strongly Disagree' for this one.</label>
+<ul class="likert">
+	<li><label><input name="sanity-check" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="sanity-check" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="sanity-check" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="sanity-check" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="sanity-check" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+<label class="statement">It takes significant training or expertise to be qualified for this task.</label>
+<ul class="likert">
+	<li><label><input name="l-expertise" type="radio" value="5" required />Strongly agree</label></li>
+	<li><label><input name="l-expertise" type="radio" value="4" required />Agree</label></li>
+	<li><label><input name="l-expertise" type="radio" value="3" required />Neutral</label></li>
+	<li><label><input name="l-expertise" type="radio" value="2" required />Disagree</label></li>
+	<li><label><input name="l-expertise" type="radio" value="1" required />Strongly disagree</label></li>
+</ul>
+
+</div>
+</div>
+
+<br />
+
+<div class="panel panel-danger qinside">
+<div class="panel-heading">
+<label>6. What level of AI/machine assistance would you prefer for the given (above) task, if any?</label>
+</div>
+<div class="panel-body">
+<div class="radio"><label><input name="label" required="" type="radio" value="1" /><b>Full AI control:</b> decisions and actions are made automatically by the AI once the task is assigned; the human does nothing.</label></div>
+<div class="radio"><label><input name="label" required="" type="radio" value="2" /><b>The AI leads and the human assists:</b> the AI performs the task, but asks for suggestions/confirmation when appropriate.</label></div>
+<div class="radio"><label><input name="label" required="" type="radio" value="3" /><b>The human leads and the AI assists:</b> the person does the task mostly on their own, but AI offers help when appropriate (e.g., human gets stuck or AI sees possible mistakes).</label></div>
+<div class="radio"><label><input name="label" required="" type="radio" value="4" /><b>No AI assistance:</b> the person does the task completely on their own.</label></div>
+</div></div>
+
+<div class="text-center">
+  <button type="submit" class="btn btn-success btn-lg" name="submitBtn" id="submitBtnId" value="submit" onclick="expandAll();"><strong>Submit!</strong></button>
+</div>
+
+
+</div> <!-- collapse panel body -->
+</div> <!-- study panel -->
+</div> <!-- col -->
+</div> <!-- work content -->
+
+</form>
+<!-- End Survey Layout -->
+</section>
+
+<script language='Javascript'>turkSetAssignmentID();</script>
+</body>
+</html>
+
