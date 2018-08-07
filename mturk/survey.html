@@ -20,7 +20,26 @@
 </div>
 <!-- End Instructions --><!-- Survey Layout -->
 
+<script>
+// AJAX request to load the task from the server
+var task_id = 2;
 
+function getTask(id) {
+    //var url = "127.0.0.1/?t=" + id;
+    var url = "?t=" + id;
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'text';
+    request.onload = function() {
+      console.log(request.response);
+      console.log(request.status);
+    };
+    request.send();
+}
+
+getTask(task_id);
+
+</script>
 
 <div class="row" id="workContent">
 <div class="col-xs-10 col-xs-offset-1">
