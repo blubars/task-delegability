@@ -146,6 +146,7 @@ h1.likert-header {
     // expand all the sections
     expandSection('#demoBody', '#collapseTrigger2');
     expandSection('#studyBody', '#collapseTrigger3');
+    window.scroll(0, 100000);
   }
 
   function validateForm() {
@@ -162,10 +163,10 @@ h1.likert-header {
       }
     });
     if(errors > 0){
-        //$('#errorwarn').text("All fields are required");
+        $('#errorMsg').removeClass("hidden").addClass("show");
         return false;
     }
-    return false;
+    return true;
   }
 
 </script>
@@ -182,7 +183,42 @@ h1.likert-header {
 <div class="panel panel-primary">
 <a class="panel-heading collapse" href="javascript:void(0);" id="collapseTrigger0"><strong>Informed Consent</strong> <span class="collapse-text">(Click to expand)</span> </a>
 <div class="panel-body" id="consentBody">
-<p>Informed Consent for participation in research study:</p>
+<!-- <div class="panel panel-default qinside"> -->
+<h4>University of Colorado at Boulder</h4>
+<h3>Informed Consent to Participate in Research</h3>
+<h4>Study Title: AI Task Delegation</h4>
+<!-- </div> -->
+
+<div class="panel qinside">
+<p><b>Purpose of research study:</b><br />
+Humans and machines offer complementary abilities. Some tasks are suitable for automation (machine control), some should arguably not be automated (human control), and some are best addressed by a mix of the two. The study is intended to gather data on how people think about different tasks and how they might feel about delegating control of those tasks to an artificial intelligence agent (as opposed to doing the task themselves or entrusting it to a human agent). We aim to explore how to best approach automation in a way that puts people first, by identifying which tasks should be automated, which shouldn’t, and why.</p>
+
+<p><b>Task Description:</b><br />
+This task consists of a short survey on a single randomly-selected task. You will be asked to provide some demographic information, then asked to evaluate your thoughts on the given task by stating the extent to which you agree with 11 statements. Finally, you will be asked to decide how much control of the task you would delegate to a computer/artificial intelligence agent (versus keeping control or delegating to a human agent). The survey is expected to take 5 minutes.</p>
+
+<p><b>Compensation: </b><br />
+You will receive 80 cents for each completed survey response, which is expected to take approximately 5 minutes. You may complete this HIT multiple times if you wish, in which case you will be given a different randomly-selected task.</p>
+
+<p><b>Benefits: </b><br />
+There is little direct benefit to participating in this study except that you may learn new tasks that AI could be doing. </p>
+
+<p><b>Risks: </b><br />
+There is little risk in participating in this study. You may see some tasks that you do not know that AI could be doing.</p>
+
+<p><b>Voluntary participation: </b><br />
+You may stop participating at any time without penalty by closing your browser window.</p>
+
+<p><b>Data Management and Confidentiality: </b><br />
+The only identifying information kept about you will be your unique worker ID serial number for the purposes of compensation. Survey responses and worker IDs will be collected on Amazon cloud servers. Data will then be anonymized by removing the worker IDs and stored on secure CU-Boulder servers for analysis by the research team. The anonymized data may be shared with other researchers upon publication of the research.</p>
+
+<p><b>Contact Information: </b><br />
+For questions about the research, complaints, or problems: Contact Brian Lubars at brian.lubars@colorado.edu.</p>
+
+<p>This research has been reviewed and approved by an Institutional Review Board (IRB). <b>For questions about your rights as a research participant, complaints, or problems</b>, you may contact them at (303) 735-3702 or irbadmin@colorado.edu.</p>
+
+<p><b>Agreement to Participate</b><br />
+If you would like to participate in this research study, please click the button below to begin the survey. By clicking on the "Accept HIT" button, you indicate that you understand the information in this consent form and that you are giving consent to participate in this research study. You have not waived any legal rights you otherwise would have as a participant in a research study. Remember, your participation is completely voluntary, and you’re free to withdraw at any time.</p>
+</div>
 
 <div class="text-center">
   <a class="btn btn-primary" href="javascript:void(0);" role="button" id="finishConsent">Continue</a>
@@ -198,24 +234,25 @@ h1.likert-header {
 <!-- WARNING: the ids "collapseTrigger" and "instructionBody" are being used to enable expand/collapse feature -->
 <a class="panel-heading collapse" href="javascript:void(0);" id="collapseTrigger1"><strong>Survey Instructions</strong> <span class="collapse-text">(Click to expand)</span> </a>
 <div class="panel-body" id="instructionBody">
-<p>Enter instructions for your survey:</p>
+
+<p>Thank you for your interest in human-centered computing research!</p>
+<p>We are conducting an academic survey about peoples' sentiments towards 'delegating'  different kinds of tasks to an AI (artificial intelligence) versus to a person. We will request some demographic information, provide you with one task (e.g., mowing a lawn), ask your opinion on several aspects of it in the form of agree/disagree statments, and finally ask how best to divide control of the task between an AI or a person.</p>
+
+<p>We expect the survey to take approximately 5-10 minutes, and you will be compensated $0.80 upon submission (expect approval within 1-2 days).</p>
 
 <!-- continue to next section (Expand) -->
 <div class="text-center">
   <a class="btn btn-primary" href="javascript:void(0);" role="button" id="finishInstructions">Continue</a>
 </div>
 
-</div>
-</div>
-</div>
-</div>
+</div></div></div></div>
 <!-- End Instructions -->
 
 <!-- Survey Layout -->
 
 <!-- <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'> -->
-<!-- <form name='mturk_form' method='post' id='mturk_form' action='https://workersandbox.mturk.com/mturk/externalSubmit'> -->
-<form name='mturk_form2' method='post' id='mturk_form2' onsubmit="return validateForm();" action="None">
+<form name='mturk_form2' method='post' id='mturk_form2' action='https://workersandbox.mturk.com/mturk/externalSubmit'> -->
+<!-- <form name='mturk_form2' method='post' id='mturk_form2' onsubmit="return validateForm();" action="None"> -->
 <input type='hidden' value='' name='assignmentId' id='assignmentId'/>
 
 <div class="row" id="workContent">
@@ -230,12 +267,12 @@ The following questions will help us to understand the study population and repr
 <!-- GENDER -->
 <div class="panel panel-default qinside"><div class="panel-body">
 <label>1. What best describes your gender? </label>
-<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="male" />Male</label></div>
-<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="female" />Female</label></div>
-<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="other" />Prefer to self-describe:</label>
+<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="male" required />Male</label></div>
+<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="female" required />Female</label></div>
+<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="other" required />Prefer to self-describe:</label>
 <input type="text" name="gender-input">
 </div>
-<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="blank" />Prefer not to say </label></div>
+<div class="radio"><label><input class="form-check-input" name="gender" type="radio" value="blank" required />Prefer not to say </label></div>
 </div></div>
 
 <!-- AGE -->
@@ -288,11 +325,11 @@ The following questions will help us to understand the study population and repr
 
 <p><span style="color:#222">(What is an AI agent? You can think of it as a computer, machine, robot, or some other form of automation.)</span><p>
 <p style="font-size:1.2em;"><b>Here is the task: </b><br /></p>
-<div class="well well-sm"><span class="task">TASK</span></div>
+<div class="well well-sm"><span class="task">${split_id}</span></div>
 
 <div class="panel panel-default qinside">
 <div class="panel-heading">
-<p><b>5. For each of the following statements, please indicate the extent to which you agree or disagree for the above task:</b> (TODO: TASK)</p>
+<p><b>5. For each of the following statements, please indicate the extent to which you agree or disagree for the above task:</b></p>
 </div>
 <div class="panel-body">
 
@@ -428,6 +465,8 @@ The following questions will help us to understand the study population and repr
 <div class="radio"><label><input name="label" required="" type="radio" value="3" /><b>The human leads and the AI assists:</b> the person does the task mostly on their own, but AI offers help when appropriate (e.g., human gets stuck or AI sees possible mistakes).</label></div>
 <div class="radio"><label><input name="label" required="" type="radio" value="4" /><b>No AI assistance:</b> the person does the task completely on their own.</label></div>
 </div></div>
+
+<div id="errorMsg" class="hidden text-center bg-danger"><p>Validation error: Please make sure all questions are answered.</p></div>
 
 <div class="text-center">
   <button type="submit" class="btn btn-success btn-lg" name="submitBtn" id="submitBtnId" value="submit" onclick="expandAll();"><strong>Submit!</strong></button>
