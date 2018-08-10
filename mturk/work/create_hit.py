@@ -19,7 +19,9 @@ import csv
 STATUS_FILE_OUT = "created_hits.csv"
 # file to read in HTMLQuestion form if that's how we're
 # creating HITs. 
-QUESTION_FILE_IN = "html-question-survey.xml"
+QUESTION_FILE_IN = "survey-question.xml"
+
+LAYOUT_ID = '3VCL8E1RS172YYS1ULJJ4XMB571PS1'
 
 # CREDENTIALS NOTE:
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
@@ -31,7 +33,7 @@ endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
 
 region_name = 'us-east-1'
 
-TITLE = "Should an AI do this task? -- 5"
+TITLE = "Should an AI do this task?"
 DESCRIPTION = "Academic study about peoples' sentiments towards 'delegating' different kinds of tasks to an AI (artificial intelligence) versus to a person. You will consider one randomly-selected task (e.g., mowing a lawn), and provide your opinion in the form of a short survey. The survey will take approximately 5 minutes."
 KEYWORDS = "AI, research, delegation, automation"
 REWARD = "0.80"
@@ -100,8 +102,8 @@ def create_hit_type():
 
 def save_hit_create_response(response, annotation):
     with open(STATUS_FILE_OUT, 'a', newline='') as outfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(response['HIT']['HITId'], response['HIT']['CreationTime'], annotation, response['HIT']['Title'], response['HIT']['HITStatus'], response['HIT']['MaxAssignments']
+        writer = csv.writer(outfile)
+        writer.writerow([response['HIT']['HITId'], response['HIT']['CreationTime'], annotation, response['HIT']['Title'], response['HIT']['HITStatus'], response['HIT']['MaxAssignments']])
         
 def create_hit_with_layout_id(index, hit_id, hit_params, layout_id):
     split_id = hit_params[0]['Value']
@@ -116,9 +118,10 @@ def create_hit_with_layout_id(index, hit_id, hit_params, layout_id):
         #UniqueRequestToken='string',
         #AssignmentReviewPolicy={
         #HITReviewPolicy={
-        HITLayoutId=layout_id,  # '3SZCR22QJPJGD2U6YLKDUXNF9VXOAK',
+        HITLayoutId=layout_id,
         HITLayoutParameters=hit_params
     )
+    save_hit_create_response(response, split_id)
     print("Done. HITId: {}\nCreationTime: \t{}\nTitle: \t{}\nDescription: \t{}\nKeywords:  \t{}\nHITStatus: \t{}\nAssignments: \t{}".format(response['HIT']['HITId'], response['HIT']['CreationTime'], response['HIT']['Title'], response['HIT']['Description'], response['HIT']['Keywords'], response['HIT']['HITStatus'], response['HIT']['MaxAssignments']))
     #print(response)
     print("----------------------------------------")
@@ -142,6 +145,7 @@ def create_hit_with_html_question(index, hit_id, hit_params):
             #HITReviewPolicy={
             Question=question
         )
+        save_hit_create_response(response, split_id)
         print("Done. HITId: {}\nCreationTime: \t{}\nTitle: \t{}\nDescription: \t{}\nKeywords:  \t{}\nHITStatus: \t{}\nAssignments: \t{}".format(response['HIT']['HITId'], response['HIT']['CreationTime'], response['HIT']['Title'], response['HIT']['Description'], response['HIT']['Keywords'], response['HIT']['HITStatus'], response['HIT']['MaxAssignments']))
         #print(response)
         print("----------------------------------------")
@@ -160,10 +164,9 @@ def main():
             hit_params = []
             for key, value in row.items():
                 hit_params.append({'Name':key, 'Value':value})
-            print(hit_params)
             # iterate through input data, create HIT for each one.
-            create_hit_with_layout_id(i, hit_id, hit_params, '3YNXD5PU8XNO5MSHQBXI07S8TP6X4N') #'3ZWZ4MEZJXXQD14D3Z8UW2LYD111FQ')
-    
+            #create_hit_with_html_question(i, hit_id, hit_params)
+            create_hit_with_layout_id(i, hit_id, hit_params, LAYOUT_ID) #'3ZWZ4MEZJXXQD14D3Z8UW2LYD111FQ')
     
 if __name__ == "__main__":
     main()

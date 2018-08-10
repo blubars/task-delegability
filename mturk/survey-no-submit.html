@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
+
 <!-- HIT template: Survey-v3.0 --><!-- The following snippet enables the 'responsive' behavior on smaller screens -->
   <meta content="width=device-width,initial-scale=1" name="viewport" />
   <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
@@ -132,16 +130,6 @@ h1.likert-header {
     }
   }
 
-  $(document).ready(function() {
-    setTrigger('#consentBody', '#collapseTrigger0', false);
-    setTrigger('#instructionBody', '#collapseTrigger1', false);
-    setTrigger('#demoBody', '#collapseTrigger2', true);
-    setTrigger('#studyBody', '#collapseTrigger3', true);
-    setSectionTrigger('#finishConsent', '#collapseTrigger0', '#collapseTrigger1', '#instructionBody');
-    setSectionTrigger('#finishInstructions', '#collapseTrigger1', '#collapseTrigger2', '#demoBody');
-    setSectionTrigger('#finishDemo', '#collapseTrigger2', '#collapseTrigger3', '#studyBody');
-  });
-
   function expandAll() {
     // expand all the sections
     expandSection('#demoBody', '#collapseTrigger2');
@@ -153,7 +141,7 @@ h1.likert-header {
     expandAll();
     console.log("Hello World");
     errors = 0;
-    $("#mturk_form2 input:radio").each(function(){
+    $("#mturk_form input:radio").each(function(){
       var name = $(this).attr("name");
       if($("input:radio[name="+name+"]:checked").length == 0){
         $(this).parents('div').addClass('warning');
@@ -168,12 +156,20 @@ h1.likert-header {
     }
     return true;
   }
+  
+  $(document).ready(function() {
+    setTrigger('#consentBody', '#collapseTrigger0', false);
+    setTrigger('#instructionBody', '#collapseTrigger1', false);
+    setTrigger('#demoBody', '#collapseTrigger2', true);
+    setTrigger('#studyBody', '#collapseTrigger3', true);
+    setSectionTrigger('#finishConsent', '#collapseTrigger0', '#collapseTrigger1', '#instructionBody');
+    setSectionTrigger('#finishInstructions', '#collapseTrigger1', '#collapseTrigger2', '#demoBody');
+    setSectionTrigger('#finishDemo', '#collapseTrigger2', '#collapseTrigger3', '#studyBody');
+    $('#submitButton').click(expandAll);
+  });
 
 </script>
 <!-- Close internal javascript -->
-
-</head>
-<body>
 
 <section class="container" id="Survey">
 
@@ -186,7 +182,6 @@ h1.likert-header {
 <!-- <div class="panel panel-default qinside"> -->
 <h3>Informed Consent to Participate in Research</h3>
 <h4>Study Title: AI Task Delegation</h4>
-<!-- </div> -->
 
 <div class="panel qinside">
 <p><b>Purpose of research study:</b><br />
@@ -253,8 +248,6 @@ If you would like to participate in this research study, please click the button
 <!-- End Instructions -->
 
 <!-- Survey Layout -->
-
-<form name='mturk_form' method='post' id='mturk_form' onsubmit="return validateForm();" action="None">
 
 <div class="row" id="workContent">
 <div class="col-xs-10 col-xs-offset-1">
@@ -343,7 +336,7 @@ The following questions will help us to understand the study population and repr
 	<li><label><input name="l-trust" type="radio" value="1" required />Strongly disagree</label></li>
 </ul>
 
-<label class="statement">Understanding the reasons behind the AI agent's actions is important for me to trust the AI agent (e.g, explanations).</label>
+<label class="statement">Understanding the reasons behind the AI agent's actions is important for me to trust the AI agent (e.g., explanations).</label>
 <ul class="likert">
 	<li><label><input name="l-process" type="radio" value="5" required />Strongly agree</label></li>
 	<li><label><input name="l-process" type="radio" value="4" required />Agree</label></li>
@@ -496,20 +489,12 @@ The following questions will help us to understand the study population and repr
 
 <div id="errorMsg" class="hidden text-center bg-danger"><p>Validation error: Please make sure all questions are answered.</p></div>
 
-<div class="text-center">
-  <button type="submit" class="btn btn-success btn-lg" name="submitButton" id="submitButton" value="submit" onclick="expandAll();"><strong>Submit!</strong></button>
-</div>
-
 </div> <!-- collapse panel body -->
 </div> <!-- study panel -->
 </div> <!-- col -->
 </div> <!-- work content -->
 
-</form>
 <!-- End Survey Layout -->
 </section>
 
-<script language='Javascript'>turkSetAssignmentID();</script>
-</body>
-</html>
 

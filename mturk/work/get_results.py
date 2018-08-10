@@ -19,6 +19,7 @@ import xml.etree.ElementTree as ET
 #---------------------------------------------------------
 CSV_OUT_FILE = "out.csv"
 HIT_TYPE_ID = '3YNXD5PU8XNO5MSHQBXI07S8TP6X4N'
+AUTOAPPROVE = False
 
 # CREDENTIALS NOTE:
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
@@ -53,21 +54,21 @@ def process_assignment(csvwriter, HITId, annotation, assignment):
         print("  - [Q{}] {}: {}".format(q_num, q_id, q_resp))
         result_row.append(q_resp)
     csvwriter.writerow(result_row)
-    return
+    if AUTOAPPROVE:
+        print("   --> Assignment Approved.")
+        client.approve_assignment(AssignmentId=assign_id, RequesterFeedback="Thank you!")
     
 def process_hit(csvwriter, hit, i):
     id = hit['HITId']
-    #status = hit['HITStatus']
     annotation = hit['RequesterAnnotation']
-    #reviewStatus = hit['HITReviewStatus']
-    #assignments = (hit['NumberOfAssignmentsAvailable'], hit['NumberOfAssignmentsPending'], hit['NumberOfAssignmentsCompleted'])
     print("=============================================")
     print("PROCESSING HIT [{}]: {}".format(i, id))
-    #print("  status: \t{}".format(status))
     print("  annotation: {}".format(annotation))
-    #print("  review status: {}".format(reviewStatus))
-    #print("  assign avail/pend/compl: {}/{}/{}".format(assignments[0], assignments[1], assigments[2]))
     res = client.list_assignments_for_hit(HITId=id, AssignmentStatuses=['Submitted'])
+    try:
+        client.update_hit_review_status(HITId=id, Revert=False)
+    except:
+        pass
     for i, assign in enumerate(res['Assignments']):
         print("  ---------------------------------------------")
         print("  ASSIGN [{}] ID={}:".format(i, assign['AssignmentId']))
@@ -80,10 +81,10 @@ def main():
     with open(CSV_OUT_FILE, 'a', newline='') as csvfile:
         writer = csv.writer(csvfile)
         if not isblank:
-            writer.writerow(['HIT id', 'Annotation', 'Worker id', 'assign id', 'gender', 'gender-input', 'age', 'tech-level', 'edu-level', 'l-trust', 'l-process', 'l-values', 'l-accountable', 'l-uncertainty', 'l-impact', 'l-intrinsic', 'l-learning', 'l-important', 'l-effort', 'l-abilities', 'sanity-check', 'l-expertise', 'label'])
+            writer.writerow(['HIT id', 'Annotation', 'Worker id', 'assign id', 'gender', 'gender-input', 'age', 'tech-level', 'edu-level', 'l-trust', 'l-process', 'l-values', 'sanity-check1', 'l-accountable', 'l-uncertainty', 'l-impact', 'l-intrinsic', 'l-learning', 'l-important', 'l-effort', 'l-abilities', 'sanity-check2', 'l-expertise', 'l-social-skills', 'l-creativity', 'label'])
         #res = client.list_reviewable_hits(HITTypeId=HIT_TYPE_ID, Status='Reviewable')
         i = 0
-        res = client.list_reviewable_hits(Status='Reviewable')
+        res = client.list_reviewable_hits(Status='Reviewable')#'Reviewable')
         while( res['NumResults'] > 0 ):
             print("Found {} reviewable HITs".format(res['NumResults']))
             for hit in res['HITs']:

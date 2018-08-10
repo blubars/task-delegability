@@ -39,8 +39,11 @@ def print_hits(page=None):
         response = client.list_hits(MaxResults=20)
     else:
         response = client.list_hits(NextToken=page, MaxResults=20)
-    next = response['NextToken']
     length = response['NumResults']
+    if length == 0:
+        print("No HITs found.")
+        return None
+    next = response['NextToken']
     print("-------------------------------------------------")
     print("Retrieved {} results; NextPage={}".format(length, next))
     for i in range(length):
@@ -57,4 +60,6 @@ def print_hits(page=None):
 
 print("Active HITs:")
 next = print_hits()
+while next != None:
+    next = print_hits(next)
 print("-------------------------------------------------\nDone.")
