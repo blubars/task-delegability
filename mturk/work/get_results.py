@@ -81,7 +81,7 @@ def main():
     with open(CSV_OUT_FILE, 'a', newline='') as csvfile:
         writer = csv.writer(csvfile)
         if not isblank:
-            writer.writerow(['HIT id', 'Annotation', 'Worker id', 'assign id', 'gender', 'gender-input', 'age', 'tech-level', 'edu-level', 'l-trust', 'l-process', 'l-values', 'sanity-check1', 'l-accountable', 'l-uncertainty', 'l-impact', 'l-intrinsic', 'l-learning', 'l-important', 'l-effort', 'l-abilities', 'sanity-check2', 'l-expertise', 'l-social-skills', 'l-creativity', 'label'])
+            writer.writerow(['HIT id', 'Annotation', 'Worker id', 'assign id', 'gender', 'gender-input', 'age', 'tech-level', 'edu-level', 'l-social-skills','l-creativity','l-effort','sanity-check1','l-expertise','l-abilities','l-accountable','l-uncertainty','l-impact','l-intrinsic','l-learning','l-important','sanity-check2','l-trust','l-process','l-values', 'label'])
         #res = client.list_reviewable_hits(HITTypeId=HIT_TYPE_ID, Status='Reviewable')
         i = 0
         res = client.list_reviewable_hits(Status='Reviewable')#'Reviewable')
