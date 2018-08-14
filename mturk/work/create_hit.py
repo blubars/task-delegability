@@ -26,9 +26,9 @@ STATUS_FILE_OUT = "created_hits.csv"
 # AI TASK DELEGABILITY, EXPERT (LIVE)
 # LAYOUT_ID = '3TM55OPJGHCJLL9GCG59OTBF16JJI4'
 # SANDBOX: EXPERT
-#LAYOUT_ID = '3JIP8A45P21AOE0AX5HRMXJRMYSY7I'
+LAYOUT_ID = '3NS2QXA3YVIU2YH4TNQL6L8189D9LE'
 # SANDBOX: LAYPERSON
-LAYOUT_ID = '3X9GX4VRL281PPR6SVBW6W47EJ06JY'
+#LAYOUT_ID = '3627I3O3UQTE8GZPTZR06YNQ8E39MG'
 
 # CREDENTIALS NOTE:
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
@@ -40,9 +40,9 @@ endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
 
 region_name = 'us-east-1'
 
-#TITLE = "Should an AI help an expert do this task?"
-TITLE = "Should an AI help you do this task?"
-DESCRIPTION = "You will consider one randomly-selected task (e.g., mowing a lawn), and provide your opinion in the form of a short survey (5-10 minutes). This is part of an academic study about people's attitudes towards 'delegating' different kinds of tasks to an AI (artificial intelligence) versus to a person."
+TITLE = "Should an AI help an expert do this task?"
+#TITLE = "Should an AI help you do this task?"
+DESCRIPTION = "You will consider one task normally done by a person (e.g., mowing a lawn), and provide your opinion in the form of a short survey (approx. 5 min). This is part of an academic study about people's attitudes towards delegating different kinds of tasks to an AI (artificial intelligence) versus to a person."
 KEYWORDS = "AI, research, delegation, automation, survey"
 REWARD = "0.80"
 
