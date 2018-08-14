@@ -69,10 +69,7 @@ Explaining the diagnosis and treatment options for the flu to a patient ,,health
 Cleaning your house,chores,chores,mundane,action,3,maid,,living,1,
 Cooking dinner,chores,chores,mundane,action,3,,,living,1,
 Buying groceries,chores,chores,mundane,action,,new,,living,1,
-Figuring out how to bake a cake,cooking,chores,mundane,decision,,figuring out how to… ?,,living,1,
 Brushing your teeth,hygiene ,chores,mundane,action,2.5,,,living,1,
-Picking an outfit to wear,recommendation,chores,conference,recommendation,3,,,living,1,DUPLICATE
-Teaching you how to cook,teaching,chores,mundane,decision,3,,,living,1,REWORD
 Deciding on an outfit for you to wear,,chores,conference,decision,3,,,living,1,DUPLICATE
 Translating an article you'd like to read from a foreign language to English,translation,communication,conference,action,3,translator,,living,1,
 Filling out and submitting your federal tax return paperwork,finance,finance,mundane,action,3,tax accountant,,living,1,
@@ -87,8 +84,8 @@ Assisting an elderly person with showering or bathing,service,service,conference
 Breaking up with your romantic partner,chores,chores,mundane,action,3,,,"living, social",1,
 Reading bedtime stories to your child,child care,personal responsibility,media,action,3,,,"living, social",1,
 Walking your dog,chores,personal responsibility,mundane,action,,new,,"living, social",1,
-Babysitting your child while you're at work,service,personal responsibility,mundane,action,3,babysitter,,"living, social",1,REWORD
-Assisting your elderly parent while you’re at work,service,personal responsibility,mundane,action,3,home care,,"living, social",1,REWORD
+Babysitting your child,service,personal responsibility,mundane,action,3,babysitter,,"living, social",1,REWORD
+Assisting your elderly parent,service,personal responsibility,mundane,action,3,home care,,"living, social",1,REWORD
 Picking out and buying a birthday present for an acquaintance,shopping,personal responsibility,,action,2,,,"living, social",1,
 Writing a birthday card to your mother,writing,personal responsibility,mundane,action,3,,,"living, social",1,
 "Identifying the social relationship between two people (e.g., are they friends, a couple, strangers, siblings)",social,social,conference,decision,2,scene reading,,"living, social",1,
@@ -99,6 +96,9 @@ Telling a joke,social,social,mundane,action,3,,,"living, social",1,
 Predicting the sexual orientation of a person,social,social,media,decision,2,,,"living, social",1,
 Setting tariffs on goods imported from China,,,,,,,,civic,1,
 Deciding military actions such as whether to launch airstrikes,,,,,,,,civic,1,
+Figuring out how to bake a cake,cooking,chores,mundane,decision,,figuring out how to… ?,,living,0,
+Picking an outfit to wear,recommendation,chores,conference,recommendation,3,,,living,0,DUPLICATE
+Teaching you how to cook,teaching,chores,mundane,decision,3,,,living,0,REWORD
 Identifying changes to make your lifestyle more healthy,recommendation,health,media,recommendation,2.5,,,health,0,
 Examining injured or ill patients and developing an individualized plan of care/rehabilitation that promotes movement and healing and reduces pain -- similar to some of what a physical therapist might do.,,health,jobs,action,3,physical therapist,,health,0,
 Playing the guitar (or another musical instrument),art,art,mundane,action,3,,,"art, creative",0,
