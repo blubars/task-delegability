@@ -17,17 +17,18 @@ import xml.etree.ElementTree as ET
 #---------------------------------------------------------
 # GLOBALS
 #---------------------------------------------------------
-CSV_OUT_FILE = "out.csv"
-HIT_TYPE_ID = '3YNXD5PU8XNO5MSHQBXI07S8TP6X4N'
+CSV_OUT_PATH = "."
+CSV_OUT_FILE = "results.csv"
+HIT_TYPE_ID = '38E1HBOA1QLK36TU6K3OURXX73X80R'
 AUTOAPPROVE = False
 
 # CREDENTIALS NOTE:
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
 
 # SANDBOX VS PRODUCTION
-endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
+#endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
 # Uncomment this line to use in production
-# endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
+endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
 
 region_name = 'us-east-1'
 
@@ -43,7 +44,9 @@ client = boto3.client(
 
 def process_assignment(csvwriter, HITId, annotation, assignment):
     assign_id = assignment['AssignmentId']
-    result_row = [HITId, annotation, assignment['WorkerId'], assign_id]
+    acceptTime = assignment['AcceptTime']
+    submitTime = assignment['SubmitTime']
+    result_row = [HITId, annotation, assignment['WorkerId'], assign_id, acceptTime, submitTime]
     root = ET.fromstring(assignment['Answer'])
     namespaces = {'ns': 'http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2005-10-01/QuestionFormAnswers.xsd'}
     #for q_num, elem in enumerate(root.iterfind("Answer")):
@@ -76,15 +79,24 @@ def process_hit(csvwriter, hit, i):
     #print("---------------------------------------------")
 
 def main():
+    global CSV_OUT_PATH
+    global CSV_OUT_FILE
+    if len(sys.argv) >= 2:
+        # if a directory, use def filename in that dir.
+        if os.path.isdir(sys.argv[1]):
+            CSV_OUT_PATH = sys.argv[1]
+            CSV_OUT_FILE = os.path.join(CSV_OUT_PATH, CSV_OUT_FILE)
+        else:
+            CSV_OUT_FILE = os.path.normpath(sys.argv[1])
     # check if we passed an input file
     isblank = os.path.isfile(CSV_OUT_FILE)
     with open(CSV_OUT_FILE, 'a', newline='') as csvfile:
         writer = csv.writer(csvfile)
         if not isblank:
-            writer.writerow(['HIT id', 'Annotation', 'Worker id', 'assign id', 'gender', 'gender-input', 'age', 'tech-level', 'edu-level', 'l-social-skills','l-creativity','l-effort','sanity-check1','l-expertise','l-abilities','l-accountable','l-uncertainty','l-impact','l-intrinsic','l-learning','l-important','sanity-check2','l-trust','l-process','l-values', 'label'])
-        #res = client.list_reviewable_hits(HITTypeId=HIT_TYPE_ID, Status='Reviewable')
+            writer.writerow(['HIT id', 'Annotation', 'Worker id', 'assign id', 'accept time', 'submit time', 'gender', 'gender-input', 'age', 'tech-level', 'edu-level', 'l-social-skills','l-creativity','l-effort','sanity-check1','l-expertise','l-abilities','l-accountable','l-uncertainty','l-impact','l-intrinsic','l-learning','l-important','sanity-check2','l-trust','l-process','l-values', 'label'])
         i = 0
-        res = client.list_reviewable_hits(Status='Reviewable')#'Reviewable')
+        res = client.list_reviewable_hits(Status='Reviewable')
+        #res = client.list_reviewable_hits(HITTypeId=HIT_TYPE_ID, Status='Reviewable')
         while( res['NumResults'] > 0 ):
             print("Found {} reviewable HITs".format(res['NumResults']))
             for hit in res['HITs']:

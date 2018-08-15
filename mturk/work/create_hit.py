@@ -22,11 +22,11 @@ STATUS_FILE_OUT = "created_hits.csv"
 #QUESTION_FILE_IN = "survey-question.xml"
 
 # AI TASK DELEGABILITY, LAYPERSON (LIVE)
-# LAYOUT_ID = '3RMPHUQERKYJ5WAYOIUZ8BZ3AQ6UKM'
+#LAYOUT_ID = '3MFG6HSNANPWEKCZ23ZI2LC6O22JR8'
 # AI TASK DELEGABILITY, EXPERT (LIVE)
-# LAYOUT_ID = '3TM55OPJGHCJLL9GCG59OTBF16JJI4'
+LAYOUT_ID = '3OTMJ5SR4QDZ7B59Y0SP5TFMEOIBGJ'
 # SANDBOX: EXPERT
-LAYOUT_ID = '3NS2QXA3YVIU2YH4TNQL6L8189D9LE'
+#LAYOUT_ID = '3R7TQUXE2PI4H2L1LCZJ9WPBJVIGXY'
 # SANDBOX: LAYPERSON
 #LAYOUT_ID = '3627I3O3UQTE8GZPTZR06YNQ8E39MG'
 
@@ -34,9 +34,9 @@ LAYOUT_ID = '3NS2QXA3YVIU2YH4TNQL6L8189D9LE'
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
 
 # SANDBOX VS PRODUCTION
-endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
+#endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
 # Uncomment this line to use in production
-# endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
+endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
 
 region_name = 'us-east-1'
 
@@ -77,8 +77,8 @@ qualifications = [
         'IntegerValues': [
             200,
         ],
-        'ActionsGuarded': 'Accept'
-        #'ActionsGuarded': 'PreviewAndAccept'
+        #'ActionsGuarded': 'Accept'
+        'ActionsGuarded': 'PreviewAndAccept'
     },
     # worker's location
     {
@@ -96,7 +96,7 @@ qualifications = [
 def create_hit_type():
     hitType = client.create_hit_type(
         AutoApprovalDelayInSeconds=172800, # 60s * 60m * 24hr * 2d = 
-        AssignmentDurationInSeconds=1200, # 20m * 60s
+        AssignmentDurationInSeconds=1500, # 25m * 60s
         Reward=REWARD, # money paid to worker for HIT
         Title=TITLE, 
         Keywords=KEYWORDS,
@@ -108,10 +108,10 @@ def create_hit_type():
     print("----------------------------------------")
     return hitType['HITTypeId']
 
-def save_hit_create_response(response, annotation):
+def save_hit_create_response(response, annotation, hit_type_id):
     with open(STATUS_FILE_OUT, 'a', newline='') as outfile:
         writer = csv.writer(outfile)
-        writer.writerow([response['HIT']['HITId'], response['HIT']['CreationTime'], annotation, response['HIT']['Title'], response['HIT']['HITStatus'], response['HIT']['MaxAssignments']])
+        writer.writerow([response['HIT']['HITId'], response['HIT']['CreationTime'], annotation, response['HIT']['Title'], response['HIT']['HITStatus'], response['HIT']['MaxAssignments'], hit_type_id])
         
 def create_hit_with_layout_id(index, hit_id, hit_params, layout_id):
     split_id = hit_params[0]['Value']
@@ -119,8 +119,8 @@ def create_hit_with_layout_id(index, hit_id, hit_params, layout_id):
     # To avoid a fee, do not create a HIT with more than 10 assignments.
     response = client.create_hit_with_hit_type(
         HITTypeId=hit_id,
-        MaxAssignments=3, # num times HIT can be accepted before unavailable
-        LifetimeInSeconds=172800, # REQ: time after which HIT not available: 1 day
+        MaxAssignments=5, # num times HIT can be accepted before unavailable
+        LifetimeInSeconds=172800, # REQ: time after which HIT not available: 2 days
         #Question='string', # using HITLayoutID instead.
         RequesterAnnotation=split_id,
         #UniqueRequestToken='string',
@@ -129,7 +129,7 @@ def create_hit_with_layout_id(index, hit_id, hit_params, layout_id):
         HITLayoutId=layout_id,
         HITLayoutParameters=hit_params
     )
-    save_hit_create_response(response, split_id)
+    save_hit_create_response(response, split_id, hit_id)
     print("Done. HITId: {}\nCreationTime: \t{}\nTitle: \t{}\nDescription: \t{}\nKeywords:  \t{}\nHITStatus: \t{}\nAssignments: \t{}".format(response['HIT']['HITId'], response['HIT']['CreationTime'], response['HIT']['Title'], response['HIT']['Description'], response['HIT']['Keywords'], response['HIT']['HITStatus'], response['HIT']['MaxAssignments']))
     #print(response)
     print("----------------------------------------")
@@ -145,7 +145,7 @@ def create_hit_with_html_question(index, hit_id, hit_params):
         # To avoid a fee, do not create a HIT with more than 10 assignments.
         response = client.create_hit_with_hit_type(
             HITTypeId=hit_id,
-            MaxAssignments=3, # num times HIT can be accepted before unavailable
+            MaxAssignments=5, # num times HIT can be accepted before unavailable
             LifetimeInSeconds=172800, # REQ: time after which HIT not available: 2 days
             RequesterAnnotation=split_id,
             #UniqueRequestToken='string',
@@ -166,6 +166,10 @@ def main():
     infile = sys.argv[1]
     with open(infile, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
+        # set up output file
+        with open(STATUS_FILE_OUT, 'a', newline='') as outfile:
+            writer = csv.writer(outfile)
+            writer.writerow(['HITId', 'CreationTime', 'Annotation', 'Title', 'HITStatus', 'MaxAssignments', 'HITTypeId'])
         # create HIT type, then create HITs according to input file.
         hit_id = create_hit_type()
         for i, row in enumerate(reader):

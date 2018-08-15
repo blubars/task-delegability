@@ -15,9 +15,9 @@ import boto3
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
 
 # SANDBOX VS PRODUCTION
-endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
+#endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
 # Uncomment this line to use in production
-# endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
+endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
 
 region_name = 'us-east-1'
 

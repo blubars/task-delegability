@@ -18,9 +18,9 @@ import boto3
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
 
 # SANDBOX VS PRODUCTION
-endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
+#endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
 # Uncomment this line to use in production
-# endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
+endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
 
 region_name = 'us-east-1'
 
@@ -54,7 +54,6 @@ def print_hits(page=None):
         print("Title:  \t{}".format(response['HITs'][i]['Title']))
         print("SplitId: \t{}".format(response['HITs'][i]['RequesterAnnotation']))
         print("Status: \t{}".format(response['HITs'][i]['HITStatus']))
-        print("Review status: \t{}".format(response['HITs'][i]['HITReviewStatus']))
         print("Assignments Avail/Pend/Complete: \t{}/{}/{}".format(response['HITs'][i]['NumberOfAssignmentsAvailable'], response['HITs'][i]['NumberOfAssignmentsPending'], response['HITs'][i]['NumberOfAssignmentsCompleted']))
     return next
 

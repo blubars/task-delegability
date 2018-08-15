@@ -20,9 +20,9 @@ import csv
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
 
 # SANDBOX VS PRODUCTION
-endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
+#endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
 # Uncomment this line to use in production
-# endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
+endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
 
 region_name = 'us-east-1'
 
@@ -51,9 +51,11 @@ def main():
                 # TODO: should check assignment status to see if in 'Submitted' state.
                 print("[{}] Approving AssignmentID '{}'".format(i, id))
                 res = client.approve_assignment(AssignmentId=id, RequesterFeedback="Thank you!")
+                print(res)
+                print("   --> Approved!")
             except:
                 # not really a safe assumption. really should check the status or the exception
-                print("   --> already approved.")
+                print("   --> Failed. Already approved?")
             i += 1
         print("\nDone! Processed {} HITs".format(i))
     
