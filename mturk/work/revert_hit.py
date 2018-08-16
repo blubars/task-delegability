@@ -11,11 +11,12 @@
 import boto3
 import sys
 import os.path
-import csv
 
 #---------------------------------------------------------
 # GLOBALS
 #---------------------------------------------------------
+SINGLE_HIT_ID = '335HHSX8CDBO59MYR8G82VHMKMAHDE'
+
 # CREDENTIALS NOTE:
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
 
@@ -35,29 +36,25 @@ client = boto3.client(
 #---------------------------------------------------------
 # SCRIPT 
 #---------------------------------------------------------
+    
+def process_hit(hit_id):
+    print("=============================================")
+    print(" - HIT [{}]".format(hit_id))
+    try:
+        client.update_hit_review_status(HITId=hit_id, Revert=True)
+        print("    --> REVERTED (status->Reviewable)")
+    except:
+        print("    --> Failed?")
+    print("---------------------------------------------")
 
 def main():
-    # check if we passed an input file
     if len(sys.argv) < 2:
-        print("Usage error: pass in an input file csv containing Assignments to approve")
+        print("Usage error: pass in a HIT id to revert (set status to Reviewable)")
         return
-    infile = sys.argv[1]
-    with open(infile, 'r', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        i = 0
-        for row in reader:
-            id = row['assign id']
-            try:
-                # TODO: should check assignment status to see if in 'Submitted' state.
-                print("[{}] Approving AssignmentID '{}'".format(i, id))
-                res = client.approve_assignment(AssignmentId=id, RequesterFeedback="Thank you!")
-                #print(res)
-                print("   --> Approved!")
-            except:
-                # not really a safe assumption. really should check the status or the exception
-                print("   --> Failed. Already approved?")
-            i += 1
-        print("\nDone! Processed {} HITs".format(i))
+    else:
+        hit_id = sys.argv[1]
+        process_hit(hit_id)
+        print("\nDone!")
     
 if __name__ == "__main__":
     main()

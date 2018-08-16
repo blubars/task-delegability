@@ -17,10 +17,20 @@ import xml.etree.ElementTree as ET
 #---------------------------------------------------------
 # GLOBALS
 #---------------------------------------------------------
+PROCESS_EXPERT = True
+
 CSV_OUT_PATH = "."
 CSV_OUT_FILE = "results.csv"
-HIT_TYPE_ID = '38E1HBOA1QLK36TU6K3OURXX73X80R'
 AUTOAPPROVE = False
+
+if PROCESS_EXPERT:
+    #HIT_TYPE_ID = '38E1HBOA1QLK36TU6K3OURXX73X80R'
+    # [EXPERT] CSV column names
+    FIELDNAMES = ['HIT id', 'Annotation', 'Worker id', 'assign id', 'accept time', 'submit time', 'gender', 'gender-input', 'age', 'tech-level', 'edu-level', 'l-social-skills','l-creativity','l-effort','sanity-check1','l-expertise','l-abilities','l-accountable','l-uncertainty','l-impact','sanity-check2','l-trust','l-process','l-values', 'label']
+else:
+    #HIT_TYPE_ID = '38E1HBOA1QLK36TU6K3OURXX73X80R'
+    # [PERSONAL] CSV column names
+    FIELDNAMES = ['HIT id', 'Annotation', 'Worker id', 'assign id', 'accept time', 'submit time', 'gender', 'gender-input', 'age', 'tech-level', 'edu-level', 'l-social-skills','l-creativity','l-effort','sanity-check1','l-expertise','l-abilities','l-accountable','l-uncertainty','l-impact','l-intrinsic','l-learning','l-important','sanity-check2','l-trust','l-process','l-values', 'label']
 
 # CREDENTIALS NOTE:
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
@@ -46,16 +56,22 @@ def process_assignment(csvwriter, HITId, annotation, assignment):
     assign_id = assignment['AssignmentId']
     acceptTime = assignment['AcceptTime']
     submitTime = assignment['SubmitTime']
-    result_row = [HITId, annotation, assignment['WorkerId'], assign_id, acceptTime, submitTime]
+    #result_row = [HITId, annotation, assignment['WorkerId'], assign_id, acceptTime, submitTime]
+    result_row = {
+        'HIT id': HITId, 
+        'Annotation': annotation, 
+        'Worker id': assignment['WorkerId'], 
+        'assign id': assign_id, 
+        'accept time': acceptTime, 
+        'submit time': submitTime }
     root = ET.fromstring(assignment['Answer'])
     namespaces = {'ns': 'http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2005-10-01/QuestionFormAnswers.xsd'}
     #for q_num, elem in enumerate(root.iterfind("Answer")):
     for q_num, elem in enumerate(root.findall("ns:Answer", namespaces)):
-        #print(elem)
         q_id = elem.find("ns:QuestionIdentifier", namespaces).text
         q_resp = elem.find("ns:FreeText", namespaces).text
         print("  - [Q{}] {}: {}".format(q_num, q_id, q_resp))
-        result_row.append(q_resp)
+        result_row[q_id] = q_resp
     csvwriter.writerow(result_row)
     if AUTOAPPROVE:
         print("   --> Assignment Approved.")
@@ -81,6 +97,7 @@ def process_hit(csvwriter, hit, i):
 def main():
     global CSV_OUT_PATH
     global CSV_OUT_FILE
+    global FIELDNAMES
     if len(sys.argv) >= 2:
         # if a directory, use def filename in that dir.
         if os.path.isdir(sys.argv[1]):
@@ -91,9 +108,10 @@ def main():
     # check if we passed an input file
     isblank = os.path.isfile(CSV_OUT_FILE)
     with open(CSV_OUT_FILE, 'a', newline='') as csvfile:
-        writer = csv.writer(csvfile)
+        writer = csv.DictWriter(csvfile, fieldnames=FIELDNAMES)
         if not isblank:
-            writer.writerow(['HIT id', 'Annotation', 'Worker id', 'assign id', 'accept time', 'submit time', 'gender', 'gender-input', 'age', 'tech-level', 'edu-level', 'l-social-skills','l-creativity','l-effort','sanity-check1','l-expertise','l-abilities','l-accountable','l-uncertainty','l-impact','l-intrinsic','l-learning','l-important','sanity-check2','l-trust','l-process','l-values', 'label'])
+            writer.writeheader()
+            #writer.writerow(['HIT id', 'Annotation', 'Worker id', 'assign id', 'accept time', 'submit time', 'gender', 'gender-input', 'age', 'tech-level', 'edu-level', 'l-social-skills','l-creativity','l-effort','sanity-check1','l-expertise','l-abilities','l-accountable','l-uncertainty','l-impact','l-intrinsic','l-learning','l-important','sanity-check2','l-trust','l-process','l-values', 'label'])
         i = 0
         res = client.list_reviewable_hits(Status='Reviewable')
         #res = client.list_reviewable_hits(HITTypeId=HIT_TYPE_ID, Status='Reviewable')
@@ -101,7 +119,12 @@ def main():
             print("Found {} reviewable HITs".format(res['NumResults']))
             for hit in res['HITs']:
                 i += 1
-                process_hit(writer, hit, i)
+                if PROCESS_EXPERT:
+                    if "expert" in hit['Title']:
+                        process_hit(writer, hit, i)
+                else:
+                    if "expert" not in hit['Title']:
+                        process_hit(writer, hit, i)
             res = client.list_reviewable_hits(Status='Reviewable', NextToken=res['NextToken'])
         print("\nDone! Processed {} HITs".format(i))
     

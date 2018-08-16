@@ -5,6 +5,10 @@
 #---------------------------------------------------------
 # Set up AMT HITs for task delegability survey
 
+# CREDENTIALS NOTE:
+# before using, set credentials either using the AWS CLI 
+# or ~/.aws/credentials
+
 #---------------------------------------------------------
 # IMPORTS
 #---------------------------------------------------------
@@ -24,14 +28,11 @@ STATUS_FILE_OUT = "created_hits.csv"
 # AI TASK DELEGABILITY, LAYPERSON (LIVE)
 #LAYOUT_ID = '3MFG6HSNANPWEKCZ23ZI2LC6O22JR8'
 # AI TASK DELEGABILITY, EXPERT (LIVE)
-LAYOUT_ID = '3OTMJ5SR4QDZ7B59Y0SP5TFMEOIBGJ'
+LAYOUT_ID = '3Z5BC91GNOOZ1FG7PBDFEON6D33V9I'
 # SANDBOX: EXPERT
 #LAYOUT_ID = '3R7TQUXE2PI4H2L1LCZJ9WPBJVIGXY'
 # SANDBOX: LAYPERSON
 #LAYOUT_ID = '3627I3O3UQTE8GZPTZR06YNQ8E39MG'
-
-# CREDENTIALS NOTE:
-# before using, set credentials either using the AWS CLI, or ~/.aws/credentials
 
 # SANDBOX VS PRODUCTION
 #endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
@@ -120,7 +121,7 @@ def create_hit_with_layout_id(index, hit_id, hit_params, layout_id):
     response = client.create_hit_with_hit_type(
         HITTypeId=hit_id,
         MaxAssignments=5, # num times HIT can be accepted before unavailable
-        LifetimeInSeconds=172800, # REQ: time after which HIT not available: 2 days
+        LifetimeInSeconds=259200, # REQ: time after which HIT not available: 3 days
         #Question='string', # using HITLayoutID instead.
         RequesterAnnotation=split_id,
         #UniqueRequestToken='string',
@@ -146,7 +147,7 @@ def create_hit_with_html_question(index, hit_id, hit_params):
         response = client.create_hit_with_hit_type(
             HITTypeId=hit_id,
             MaxAssignments=5, # num times HIT can be accepted before unavailable
-            LifetimeInSeconds=172800, # REQ: time after which HIT not available: 2 days
+            LifetimeInSeconds=259200, # REQ: time after which HIT not available: 3 days
             RequesterAnnotation=split_id,
             #UniqueRequestToken='string',
             #AssignmentReviewPolicy={

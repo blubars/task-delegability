@@ -3,7 +3,7 @@
 #---------------------------------------------------------
 # FILE DESCRIPTION:
 #---------------------------------------------------------
-# Download and save results from completed HIT assignments
+# Approve a previously-rejected assignment
 
 #---------------------------------------------------------
 # IMPORTS
@@ -50,7 +50,7 @@ def main():
             try:
                 # TODO: should check assignment status to see if in 'Submitted' state.
                 print("[{}] Approving AssignmentID '{}'".format(i, id))
-                res = client.approve_assignment(AssignmentId=id, RequesterFeedback="Thank you!")
+                res = client.approve_assignment(AssignmentId=id, RequesterFeedback="Thank you!", OverrideRejection=True)
                 #print(res)
                 print("   --> Approved!")
             except:

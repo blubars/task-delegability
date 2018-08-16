@@ -3,7 +3,7 @@
 #---------------------------------------------------------
 # FILE DESCRIPTION:
 #---------------------------------------------------------
-# Download and save results from completed HIT assignments
+# Reject workers who failed the attention check.
 
 #---------------------------------------------------------
 # IMPORTS
@@ -16,6 +16,7 @@ import csv
 #---------------------------------------------------------
 # GLOBALS
 #---------------------------------------------------------
+REJ_MSG = "We're sorry, you failed one of the attention check questions."
 # CREDENTIALS NOTE:
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
 
@@ -39,7 +40,7 @@ client = boto3.client(
 def main():
     # check if we passed an input file
     if len(sys.argv) < 2:
-        print("Usage error: pass in an input file csv containing Assignments to approve")
+        print("Usage error: pass in an input file csv containing Assignments to reject")
         return
     infile = sys.argv[1]
     with open(infile, 'r', newline='') as csvfile:
@@ -49,13 +50,13 @@ def main():
             id = row['assign id']
             try:
                 # TODO: should check assignment status to see if in 'Submitted' state.
-                print("[{}] Approving AssignmentID '{}'".format(i, id))
-                res = client.approve_assignment(AssignmentId=id, RequesterFeedback="Thank you!")
+                print("[{}] Rejecting AssignmentID '{}'".format(i, id))
+                res = client.reject_assignment(AssignmentId=id, RequesterFeedback=REJ_MSG)
                 #print(res)
-                print("   --> Approved!")
+                print("   --> Rejected!")
             except:
                 # not really a safe assumption. really should check the status or the exception
-                print("   --> Failed. Already approved?")
+                print("   --> Failed.")
             i += 1
         print("\nDone! Processed {} HITs".format(i))
     

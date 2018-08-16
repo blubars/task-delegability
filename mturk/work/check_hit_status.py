@@ -9,10 +9,12 @@
 # IMPORTS
 #---------------------------------------------------------
 import boto3
+import sys
 
 #---------------------------------------------------------
 # GLOBALS
 #---------------------------------------------------------
+FILTER_ASSIGNMENTS = 0
 
 # CREDENTIALS NOTE:
 # before using, set credentials either using the AWS CLI, or ~/.aws/credentials
@@ -34,31 +36,43 @@ client = boto3.client(
 # SCRIPT 
 #---------------------------------------------------------
 
-def print_hits(page=None):
+def print_hits(index, page=None):
     if page is None:
         response = client.list_hits(MaxResults=20)
     else:
         response = client.list_hits(NextToken=page, MaxResults=20)
     length = response['NumResults']
     if length == 0:
-        print("No HITs found.")
-        return None
+        print("-------------------------------------------------")
+        print("No more HITs found. Total: {}".format(index))
+        return None, index
     next = response['NextToken']
     print("-------------------------------------------------")
     print("Retrieved {} results; NextPage={}".format(length, next))
     for i in range(length):
+        completed = response['HITs'][i]['NumberOfAssignmentsCompleted']
+        if FILTER_ASSIGNMENTS > 0 and FILTER_ASSIGNMENTS == completed:
+            continue
         print("-------------------------------------------------")
-        print(" INDEX {}".format(i))
+        print(" INDEX {}".format(index))
         print("-------------------------------------------------")
         print("HIT ID: \t{}".format(response['HITs'][i]['HITId']))
         print("Title:  \t{}".format(response['HITs'][i]['Title']))
         print("SplitId: \t{}".format(response['HITs'][i]['RequesterAnnotation']))
         print("Status: \t{}".format(response['HITs'][i]['HITStatus']))
-        print("Assignments Avail/Pend/Complete: \t{}/{}/{}".format(response['HITs'][i]['NumberOfAssignmentsAvailable'], response['HITs'][i]['NumberOfAssignmentsPending'], response['HITs'][i]['NumberOfAssignmentsCompleted']))
-    return next
+        print("Assignments Avail/Pend/Complete: \t{}/{}/{}".format(response['HITs'][i]['NumberOfAssignmentsAvailable'], response['HITs'][i]['NumberOfAssignmentsPending'], completed))
+        index += 1
+    return next, index
 
+if len(sys.argv) >= 2:
+    try:
+        FILTER_ASSIGNMENTS = int(sys.argv[1])
+        print("Showing filtered (incomplete) HIT results only")
+    except ValueError:
+        print("To filter by incomplete HITs, pass in # of assignments expected")
+    
 print("Active HITs:")
-next = print_hits()
+next, index = print_hits(0)
 while next != None:
-    next = print_hits(next)
+    next, index = print_hits(index, next)
 print("-------------------------------------------------\nDone.")
